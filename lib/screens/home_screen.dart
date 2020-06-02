@@ -10,13 +10,13 @@ import 'shoppinglist_screen.dart';
 
 class HomeScreeen extends StatelessWidget {
   static String id = 'home_screen';
-  Color mainColor = kPrimaryColor.withOpacity(0.2);
+  Color mainColor = kCardColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor.withOpacity(0.3),
+        backgroundColor: kDarkColor,
         elevation: 0.5,
         leading: IconButton(
             onPressed: () {}, icon: Icon(Icons.list), iconSize: 35.0),
@@ -34,7 +34,7 @@ class HomeScreeen extends StatelessWidget {
                 Expanded(
                   child: ReusableCard(
                     cardChild: CardContent(iconName: 'message'),
-                    colour: kPrimaryColor.withOpacity(0.2),
+                    colour: mainColor,
                     onPress: () {
                       Navigator.pushNamed(context, ChatScreen.id);
                       print('Jump to Chat screen');

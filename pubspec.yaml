@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   flutter_svg: ^0.17.4
   fl_chart: ^0.9.3
+  month_picker_dialog: ^0.3.2
+  syncfusion_flutter_datepicker: ^18.1.54-beta
 
 
   # The following adds the Cupertino Icons font to your application.

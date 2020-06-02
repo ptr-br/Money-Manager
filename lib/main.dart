@@ -9,11 +9,13 @@ import 'screens/calendar_screen.dart';
 import 'screens/moneymanager_screen.dart';
 
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  String licenseKey = 'NT8mJyc2IWhia31ifWN9Z2FoYmF8YGJ8ampqanNiYmlmamlmanMDHmgjNic2ITEyJjYhYmp9an1qZBM0PjI6P30wPD4=';
+
+
   // root widget of the application
   @override
   Widget build(BuildContext context) {
