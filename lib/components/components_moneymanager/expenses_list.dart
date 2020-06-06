@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './task_tile_moneymanager.dart';
+import '../../models/moneymanager_entrys_data.dart';
 
 class ExpensesList extends StatelessWidget {
   ExpensesList({this.entries});
@@ -16,11 +18,25 @@ class ExpensesList extends StatelessWidget {
           child: GlowingOverscrollIndicator(
             axisDirection: AxisDirection.down,
             color: Colors.black54,
-            child: ListView.separated(
-              itemCount: entries.length,
-              separatorBuilder: (BuildContext context, int index) => const Divider(height: 0,),
-              itemBuilder: (BuildContext context, int index){
-                return TaskTile();
+
+            child: Consumer<EntryData>(
+              builder: (context,entryData,child){
+
+
+                return ListView.separated(
+                  itemCount: entryData.entryCount,
+                  separatorBuilder: (BuildContext context, int index) => const Divider(height: 0,),
+                  itemBuilder: (BuildContext context, int index){
+                    final entry = entryData.entryData[index];
+                    return TaskTile(
+                      icon: entry.icon,
+                      cardName:entry.cardName,
+                      //timeStamp: entry.timeStamp,
+                      description: entry.description,
+                      expense: entry.expense,
+                    );
+                  },
+                );
               },
             ),
           ),

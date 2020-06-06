@@ -30,7 +30,7 @@ class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
             width: 1,
             color: kDarkColor,
           ),
-          HeaderAndValue(name: 'Expanses', value: widget.expanses),
+          HeaderAndValue(name: 'Expenses', value: widget.expanses),
           VerticalDivider(
             width: 1,
             color: kDarkColor,

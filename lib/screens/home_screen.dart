@@ -7,6 +7,7 @@ import 'package:couplemanager/screens/todo_screen.dart';
 import 'package:flutter/material.dart';
 import '../components/reusable_card_content.dart';
 import 'shoppinglist_screen.dart';
+import '../models/moneymanager_entrys_data.dart';
 
 class HomeScreeen extends StatelessWidget {
   static String id = 'home_screen';
@@ -43,13 +44,14 @@ class HomeScreeen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    cardChild: CardContent(iconName: 'money'),
-                    colour: mainColor,
-                    onPress: () {
-                      Navigator.pushNamed(context, MoneyManagerScreen.id);
-                      print('Jump to MoneyManager screen');
-                    },
-                  ),
+                      cardChild: CardContent(iconName: 'money'),
+                      colour: mainColor,
+                      onPress: () {
+                        Navigator.pushNamed(context, MoneyManagerScreen.id);
+                        print('Jump to MoneyManager screen');
+                      },
+                    ),
+
                 )
               ],
             ),
