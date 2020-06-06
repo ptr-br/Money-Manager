@@ -4,70 +4,128 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../components/components_moneymanager/moneymanager_headercard.dart';
 import '../components/components_moneymanager/expenses_list.dart';
-import '../models/moneymanager_entrys_data.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter/rendering.dart';
 
 
-class MoneyManagerScreen extends StatelessWidget {
+class MoneyManagerScreen extends StatefulWidget {
+
   static String id = 'moneymanager_screen';
-  int expanses = 1250;
-  int income = 1500;
+
+
+  @override
+  _MoneyManagerScreenState createState() => _MoneyManagerScreenState();
+}
+
+class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
+
+  ScrollController scrollController;
+  bool dialVisible = true;
+
+
+  // Methods for hiding FAB by scrolling
+  @override
+  void initState() {
+
+    super.initState();
+
+    scrollController = ScrollController()
+      ..addListener(() {
+        setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
+      });
+  }
+
+  void setDialVisible(bool value) {
+    setState(() {
+      dialVisible = value;
+    });
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
+    //TODO Aufrümen und für alle einzelteile Build Methoden erstellen
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          elevation: 5,
-          backgroundColor: kPrimaryColor,
-          onPressed: (){
-          },
+      backgroundColor: kBackgroundColor,
+      body: SafeArea(
 
-          child: Icon(Icons.add,size: 35,),
-
-        ),
-        backgroundColor: kBackgroundColor,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Center(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 20,
-                      child: Container(
-                        //
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            //Expanded(child: Icon(Icons.arrow_back,size: 30,color: kTextMediumColor),),
-                            Expanded(
-                                flex: 4,
-                                child:
-                                    SvgPicture.asset("assets/icons/money.svg")),
-                          ],
-                        ),
+          child: Center(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 20,
+                    child: Container(
+                      //
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          //Expanded(child: Icon(Icons.arrow_back,size: 30,color: kTextMediumColor),),
+                          Expanded(
+                              flex: 4,
+                              child:
+                                  SvgPicture.asset("assets/icons/money.svg")),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      flex: 30,
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        height: 220,
-                        width: double.maxFinite,
-                        child: MoneyManagerHeaderCard(
-                            income: income, expanses: expanses),
-                      ),
+                  ),
+                  Expanded(
+                    flex: 30,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      height: 220,
+                      width: double.maxFinite,
+                      child: MoneyManagerHeaderCard(),
                     ),
-                    Expanded(flex: 200, child: ExpensesList()),
-                  ],
-                ),
+                  ),
+                  Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
+                ],
               ),
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
+
+
+      // speed-dail FAB
+
+      floatingActionButton: SpeedDial(
+        visible: dialVisible,
+        closeManually: false,
+        backgroundColor: kPrimaryColor,
+        elevation: 5.0,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 22.0),
+        curve: Curves.bounceIn,
+        tooltip: 'Speed Dial',
+        heroTag: 'speed-dial-hero-tag',
+        foregroundColor: Colors.white,
+
+
+        shape: CircleBorder(),
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.apps),
+            backgroundColor: kDarkColor,
+            label: 'split expenses',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap: () => print('SECOND CHILD'),
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.add),
+            backgroundColor: kDarkColor,
+            label: 'add expense',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap: () => print('THIRD CHILD'),
+          ),
+        ],
+
+
+      ),
+
+
+      // bottom navigation-bar
+      bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.list), title: Text('Expenses')),

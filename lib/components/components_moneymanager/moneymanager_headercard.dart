@@ -1,14 +1,13 @@
+import 'package:couplemanager/models/moneymanager_entrys_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../constants.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:provider/provider.dart';
 
 
 class MoneyManagerHeaderCard extends StatefulWidget {
-  MoneyManagerHeaderCard({this.income, this.expanses});
 
-  final int income;
-  final int expanses;
 
   @override
   _MoneyManagerHeaderCardState createState() => _MoneyManagerHeaderCardState();
@@ -25,12 +24,12 @@ class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           //ser
-          HeaderAndValue(name: 'Income', value: widget.income),
+          HeaderAndValue(name: 'Income', value: 125),
           VerticalDivider(
             width: 1,
             color: kDarkColor,
           ),
-          HeaderAndValue(name: 'Expenses', value: widget.expanses),
+          HeaderAndValue(name: 'Expenses', value: Provider.of<EntryData>(context).getExpense),
           VerticalDivider(
             width: 1,
             color: kDarkColor,
@@ -64,12 +63,11 @@ class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'Date\n',
-                  style: TextStyle(fontSize: 12, color: kTextColor),
+                  style: kStyleHeaderHeadline,
                   children: <TextSpan>[
                     TextSpan(
                       text: '${selectedDate.month}/${selectedDate.year}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
+                      style: kStyleHeaderText
                     )
                   ],
                 ),
@@ -87,7 +85,7 @@ class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
 class HeaderAndValue extends StatelessWidget {
   HeaderAndValue({this.value, this.name});
   final String name;
-  final int value;
+  final double value;
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +101,11 @@ class HeaderAndValue extends StatelessWidget {
           textAlign: TextAlign.center,
           text: TextSpan(
               text: '$name\n',
-              style: TextStyle(fontSize: 12, color: kTextColor),
+              style: kStyleHeaderHeadline,
               children: <TextSpan>[
                 TextSpan(
                   text: '$value',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: kStyleHeaderText,
                 )
               ]),
         ),

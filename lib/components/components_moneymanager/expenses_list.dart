@@ -4,9 +4,9 @@ import './task_tile_moneymanager.dart';
 import '../../models/moneymanager_entrys_data.dart';
 
 class ExpensesList extends StatelessWidget {
-  ExpensesList({this.entries});
+  ExpensesList({this.scrollController});
 
-  final List<String> entries;
+  ScrollController scrollController;
 
 
   @override
@@ -24,6 +24,8 @@ class ExpensesList extends StatelessWidget {
 
 
                 return ListView.separated(
+                  // actual function is located in moneymanager_screen
+                  controller: scrollController,
                   itemCount: entryData.entryCount,
                   separatorBuilder: (BuildContext context, int index) => const Divider(height: 0,),
                   itemBuilder: (BuildContext context, int index){
