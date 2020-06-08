@@ -52,7 +52,6 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-
           child: Center(
             child: Container(
               child: Column(
