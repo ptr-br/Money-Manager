@@ -2,12 +2,12 @@ import 'package:couplemanager/components/reusable_card.dart';
 import 'package:couplemanager/constants.dart';
 import 'package:couplemanager/screens/calendar_screen.dart';
 import 'package:couplemanager/screens/chat_screen.dart';
-import 'package:couplemanager/screens/moneymanager_screen.dart';
+import 'file:///C:/src/Flutter/AndroidProjects/couple_manager/lib/screens/moneymanager_screens/moneymanager_screen.dart';
 import 'package:couplemanager/screens/todo_screen.dart';
 import 'package:flutter/material.dart';
 import '../components/reusable_card_content.dart';
 import 'shoppinglist_screen.dart';
-import '../models/moneymanager_entrys_data.dart';
+
 
 class HomeScreeen extends StatelessWidget {
   static String id = 'home_screen';

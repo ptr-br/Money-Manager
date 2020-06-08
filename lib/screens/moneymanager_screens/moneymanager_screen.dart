@@ -1,9 +1,11 @@
 import 'package:couplemanager/constants.dart';
+import 'package:couplemanager/screens/moneymanager_screens/add_screen.dart';
+import 'package:couplemanager/screens/moneymanager_screens/split_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/components_moneymanager/moneymanager_headercard.dart';
-import '../components/components_moneymanager/expenses_list.dart';
+import '../../components/components_moneymanager/moneymanager_headercard.dart';
+import '../../components/components_moneymanager/expenses_list.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/rendering.dart';
 
@@ -13,12 +15,13 @@ class MoneyManagerScreen extends StatefulWidget {
   static String id = 'moneymanager_screen';
 
 
+
   @override
   _MoneyManagerScreenState createState() => _MoneyManagerScreenState();
 }
 
 class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
-
+  Color buttonColor = kPrimaryColor;
   ScrollController scrollController;
   bool dialVisible = true;
 
@@ -90,17 +93,27 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       // speed-dail FAB
 
       floatingActionButton: SpeedDial(
+        overlayColor: Colors.white,
         visible: dialVisible,
         closeManually: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: buttonColor,
         elevation: 5.0,
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(size: 22.0),
         curve: Curves.bounceIn,
         tooltip: 'Speed Dial',
         heroTag: 'speed-dial-hero-tag',
-        foregroundColor: Colors.white,
-
+        foregroundColor: kFABforegroundColor,
+        onOpen: (){
+          setState(() {
+            buttonColor = kFABcloseColor;
+          });
+          },
+        onClose:(){
+          setState(() {
+            buttonColor = kPrimaryColor;
+          });
+        },
 
         shape: CircleBorder(),
         children: [
@@ -109,14 +122,18 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
             backgroundColor: kDarkColor,
             label: 'split expenses',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('SECOND CHILD'),
+            onTap: (){
+              Navigator.pushNamed(context, SplitScreen.id );
+            },
           ),
           SpeedDialChild(
             child: Icon(Icons.add),
             backgroundColor: kDarkColor,
             label: 'add expense',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('THIRD CHILD'),
+            onTap: (){
+              Navigator.pushNamed(context, AddScreen.id );
+            },
           ),
         ],
 

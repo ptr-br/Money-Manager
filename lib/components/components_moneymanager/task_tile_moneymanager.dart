@@ -28,7 +28,7 @@ class TaskTile extends StatelessWidget {
           ),
           RawMaterialButton(
               constraints: BoxConstraints.tight(Size(38, 38)),
-              onPressed: () {},
+              onPressed: null,
               elevation: 5,
               fillColor: kPrimaryColor.withOpacity(0.5),
               shape: CircleBorder(),

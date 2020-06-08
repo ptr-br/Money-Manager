@@ -1,3 +1,4 @@
+import 'package:couplemanager/components/components_moneymanager/add_icon.dart';
 import 'package:flutter/material.dart';
 
 // Used colors in the application
@@ -20,3 +21,10 @@ const kStyleExpenses = TextStyle(fontSize: 20, fontWeight: FontWeight.w300,color
 // Header-Card
 const kStyleHeaderHeadline = TextStyle(fontSize: 12, color: kTextMediumColor);
 const kStyleHeaderText =  TextStyle(fontWeight: FontWeight.bold, fontSize: 15);
+
+// Floating actionButton
+const kFABcloseColor =  Colors.redAccent;
+const kFABforegroundColor = Colors.white;
+
+// addIcon
+const kaddIconTextstyle = TextStyle(fontSize: 12, color: kTextMediumColor);
