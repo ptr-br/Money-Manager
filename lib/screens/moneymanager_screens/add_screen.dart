@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../components/components_moneymanager/add_icon.dart';
 import '../../models/moneymanager_add_data.dart';
 import 'calculation_screen.dart';
+import 'hero_dialog_route.dart';
 
 class AddScreen extends StatefulWidget {
   static String id = "add_screen";
@@ -43,7 +44,9 @@ class _AddScreenState extends State<AddScreen> {
                           for (int i=0;i<addData.iconsCount; i++){
                             addData.addDataList[i].isSelected = false;
                           }
-                          Navigator.push(context, MaterialPageRoute(fullscreenDialog: true, builder:(BuildContext context)=>CalculationScreen(addIcon: tmpIcon)));
+                          Navigator.push(context,
+                              HeroDialogRoute(
+                                  builder:(BuildContext context)=>CalculationScreen(addIcon: tmpIcon)));
                           setState(() {
                             tmpIcon.isSelected = true;
                             // display modalbottom sheet
@@ -52,8 +55,12 @@ class _AddScreenState extends State<AddScreen> {
                           },
                         child: Hero(
                           tag: 'hero${tmpIcon.name}',
-                          child: Container(
-                            child: tmpIcon.build(context),),
+                          transitionOnUserGestures: true,
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Container(
+                              child: tmpIcon.build(context)),
+                          ),
                         ),);
                   },
                   itemCount: addData.iconsCount,
