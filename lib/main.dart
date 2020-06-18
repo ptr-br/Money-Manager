@@ -1,6 +1,7 @@
 import 'package:couplemanager/constants.dart';
 import 'package:couplemanager/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import './screens/home_screen.dart';
 import 'screens/chat_screen.dart';
 import 'screens/shoppinglist_screen.dart';
@@ -26,6 +27,13 @@ class MyApp extends StatelessWidget {
       // TODO umsetzen des ChangeNotifyerProvider...
       create: (context) => EntryData(),
       child: MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
+        ],
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('de', 'DE'),
+        ],
         // routes
         initialRoute: HomeScreeen.id,
         routes: {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../components/components_moneymanager/add_icon.dart';
 import '../../models/moneymanager_add_data.dart';
-import 'calculation_screen.dart';
+import 'add_alertdialog.dart';
 import 'hero_dialog_route.dart';
 
 class AddScreen extends StatefulWidget {
@@ -44,24 +44,38 @@ class _AddScreenState extends State<AddScreen> {
                           for (int i=0;i<addData.iconsCount; i++){
                             addData.addDataList[i].isSelected = false;
                           }
-                          Navigator.push(context,
-                              HeroDialogRoute(
-                                  builder:(BuildContext context)=>CalculationScreen(addIcon: tmpIcon)));
                           setState(() {
                             tmpIcon.isSelected = true;
                             // display modalbottom sheet
                           });
+                          Navigator.push(context,
+                              HeroDialogRoute(
+                                  builder:(BuildContext context)=>CalculationScreen(addIcon: tmpIcon)));
 
                           },
                         child: Hero(
                           tag: 'hero${tmpIcon.name}',
+
+                          // prevent hero from overfloating
+                          flightShuttleBuilder: (BuildContext flightContext,
+                              Animation<double> animation,
+                              HeroFlightDirection flightDirection,
+                              BuildContext fromHeroContext,
+                              BuildContext toHeroContext,){
+                            return SingleChildScrollView(
+                              child: fromHeroContext.widget,
+                            );},
+
+
                           transitionOnUserGestures: true,
                           child: Material(
                             type: MaterialType.transparency,
                             child: Container(
                               child: tmpIcon.build(context)),
                           ),
-                        ),);
+
+                        ),
+                    );
                   },
                   itemCount: addData.iconsCount,
                 );

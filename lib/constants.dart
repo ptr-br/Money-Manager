@@ -28,3 +28,6 @@ const kFABforegroundColor = Colors.white;
 
 // addIcon
 const kaddIconTextstyle = TextStyle(fontSize: 12, color: kTextMediumColor);
+
+// AutoFocus of Keyboard when inputting numbers
+const bool kAutoFocusKeyboard = false;
