@@ -14,9 +14,10 @@ import 'package:intl/date_symbol_data_local.dart';
 enum Character { Peter, Kaddy }
 
 class CalculationScreen extends StatefulWidget {
-  CalculationScreen({this.addIcon});
+  CalculationScreen({this.iconID,this.iconName});
 
-  final AddIcon addIcon;
+  final int iconID;
+  final String iconName;
   static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
@@ -32,7 +33,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
   final FocusNode _moneyFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
   Character _character = Character.Peter;
-  DateTime _dateTime = null;
+  DateTime _dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +81,10 @@ class _CalculationScreenState extends State<CalculationScreen> {
 
                             Hero(
                               transitionOnUserGestures: true,
-                              tag: 'hero${widget.addIcon.name}',
+                              tag: 'hero${widget.iconName}',
                               child: Material(
                                 type: MaterialType.transparency,
-                                child: Container(child: widget.addIcon,),
+                                child: Container(child: AddIcon(iconID: widget.iconID, iconName: widget.iconName)),
                               ),
 
                               // prevent hero from overfloating
@@ -99,12 +100,65 @@ class _CalculationScreenState extends State<CalculationScreen> {
                             ),
 
 
-                            // TODO alle ListTiles in eine Methode oder sogar Klasse packen
+                            // differnet ListTiles for things like Date, ampount of money etc.
+                            ListTile(
+                              leading: Icon(Icons.calendar_today),
+                              title: GestureDetector(
+                                  child: Text(_dateTime==null ? DateFormat.yMd('de').format((DateTime.now())).toString():DateFormat.yMd('de').format((_dateTime)).toString()),
+                                onTap:(){
+                                    showDatePicker(
+                                      locale:Locale('de', 'DE'),
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2100)
+                                    ).then((date){
+                                      setState(() {
+                                        _dateTime = date;
+                                      });
+                                    });
+                                }
+                              ),
+                            ),
+
+
+                            ListTile(
+                              leading: Icon(Icons.monetization_on),
+                              title: TextFormField(
+                                decoration: InputDecoration(hintText: "Money"),
+                                focusNode: _moneyFocus,
+                                autofocus: kAutoFocusKeyboard,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+
+                                onFieldSubmitted: (term) {
+                                  _fieldFocusChange(context, _moneyFocus, _descriptionFocus);
+                                },
+
+
+                                onSaved: (value) {
+                                  _money = double.tryParse(value);
+                                },
+                              ),
+                            ),
+
+
+                            ListTile(
+                              leading: Icon(Icons.description),
+                              title: TextFormField(
+                                decoration: InputDecoration(hintText: "Description"),
+                                focusNode: _descriptionFocus,
+                                onSaved: (value) {
+                                  _description = value;
+                                },
+                              ),
+                            ),
+
+
                             ListTile(
                               leading: Icon(Icons.person),
                               title: Row(
                                 children: <Widget>[
-                                  // TODO 1: Fixen damit es gut aussieht!
 
                                   Radio(
                                     focusColor: kPrimaryColor,
@@ -131,79 +185,9 @@ class _CalculationScreenState extends State<CalculationScreen> {
                                     },
                                   ),
                                   Text('Kaddy')
-
-
                                 ],
                               ),
-//                            TextFormField(
-//                              decoration: InputDecoration(hintText: "Person"),
-//                              onSaved: (value) {
-//                                _person = value;
-//                              },
-//                            ),
                             ),
-
-
-                            ListTile(
-                              leading: Icon(Icons.calendar_today),
-                              title: GestureDetector(
-                                  child: Text(_dateTime==null ? DateFormat.yMd('de').format((DateTime.now())).toString():DateFormat.yMd('de').format((_dateTime)).toString()),
-                                onTap:(){
-                                    showDatePicker(
-                                      locale:Locale('de', 'DE'),
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2000),
-                                        lastDate: DateTime(2100)
-
-
-                                    ).then((date){
-                                      setState(() {
-                                        _dateTime = date;
-                                      });
-                                    });
-
-
-                                }
-
-
-
-                              ),
-                            ),
-
-
-                            ListTile(
-                              leading: Icon(Icons.monetization_on),
-                              title: TextFormField(
-                                decoration: InputDecoration(hintText: "Money"),
-                                focusNode: _moneyFocus,
-                                autofocus: kAutoFocusKeyboard,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.number,
-
-                                onFieldSubmitted: (term) {
-                                  _fieldFocusChange(context, _moneyFocus, _descriptionFocus);
-                                },
-
-
-                                onSaved: (value) {
-                                  _money = double.tryParse(value);
-                                },
-
-                              ),
-                            ),
-
-
-                            ListTile(
-                              leading: Icon(Icons.description),
-                              title: TextFormField(
-                                decoration: InputDecoration(hintText: "Description"),
-                                focusNode: _descriptionFocus,
-                                onSaved: (value) {
-                                  _description = value;
-                                },
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -233,10 +217,14 @@ class _CalculationScreenState extends State<CalculationScreen> {
               onPressed: () {
                 CalculationScreen._formKey.currentState.save();
 
-                print(_money);
-                Entry entry = new Entry(cardName: widget.addIcon.name,
-                    icon: widget.addIcon.icon,
-                    expense: _money);
+                Entry entry = new Entry(cardName: widget.iconName,
+                    icon: widget.iconID,
+                    expense: _money,
+                    description: _description,
+                    date:_dateTime==null ? DateTime.now() : _dateTime,
+                  person: _character.toString()
+
+                );
                 Provider.of<EntryData>(context, listen: false).addEntry(entry);
                 Navigator.pushNamedAndRemoveUntil(
                     context, MoneyManagerScreen.id, (
