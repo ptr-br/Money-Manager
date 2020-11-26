@@ -84,7 +84,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
                               tag: 'hero${widget.iconName}',
                               child: Material(
                                 type: MaterialType.transparency,
-                                child: Container(child: AddIcon(iconID: widget.iconID, iconName: widget.iconName)),
+                                child: Container(child: AddIcon.withSelected(widget.iconID, widget.iconName,true)),
                               ),
 
                               // prevent hero from overfloating
@@ -137,7 +137,20 @@ class _CalculationScreenState extends State<CalculationScreen> {
 
 
                                 onSaved: (value) {
-                                  _money = double.tryParse(value);
+                                  if (value.contains(',')){
+                                    print(value);
+                                    List values = value.split(',');
+                                    value = values.join('.');
+                                    print(value);
+                                  };
+                                  try{
+                                    _money = double.parse(value);
+                                  } catch(e){
+                                    print(e);
+                                    _money = 0;
+                                  }
+
+
                                 },
                               ),
                             ),
@@ -217,12 +230,14 @@ class _CalculationScreenState extends State<CalculationScreen> {
               onPressed: () {
                 CalculationScreen._formKey.currentState.save();
 
-                Entry entry = new Entry(cardName: widget.iconName,
+                Entry entry = new Entry(
+                    timestamp: DateTime.now().toString(),
+                    cardName: widget.iconName,
                     icon: widget.iconID,
                     expense: _money,
                     description: _description,
-                    date:_dateTime==null ? DateTime.now() : _dateTime,
-                  person: _character.toString()
+                    date:_dateTime==null ? DateTime.now().toString() : _dateTime.toString(),
+                    person: _character.toString()
 
                 );
                 Provider.of<EntryData>(context, listen: false).addEntry(entry);

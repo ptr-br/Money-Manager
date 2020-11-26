@@ -7,16 +7,16 @@ class AddData extends ChangeNotifier{
 
   // Icons-List
   List<AddIcon> _addIconList =[
-    AddIcon(icon: Icon(Icons.shopping_cart) ,name: "Lebensmittel"),
-    AddIcon(icon: Icon(Icons.local_dining) ,name: "Ausgehen"),
-    AddIcon(icon: Icon(Icons.accessibility_new) ,name: "Kleidung"),
-    AddIcon(icon: Icon(Icons.directions_car) ,name: "Transport"),
-    AddIcon(icon: Icon(Icons.brush) ,name: "Hygiene"),
-    AddIcon(icon: Icon(Icons.book) ,name: "Bildung"),
-    AddIcon(icon: Icon(Icons.wc) ,name: "Haushalt"),
-    AddIcon(icon: Icon(Icons.home) ,name: "Wohnung"),
-    AddIcon(icon: Icon(Icons.attach_file) ,name: "Sonstiges"),
-    AddIcon(icon: Icon(Icons.add) ,name: "Hinzufügen")
+    AddIcon(iconID: 59168 ,iconName: "Lebensmittel"),
+    AddIcon(iconID: 61001 ,iconName: "Ausgehen"),
+    AddIcon(iconID: 62619 ,iconName: "Kleidung"),
+    AddIcon(iconID: 59067 ,iconName: "Transport"),
+    AddIcon(iconID: 59901 ,iconName: "Hygiene"),
+    AddIcon(iconID: 58870 ,iconName: "Bildung"),
+    AddIcon(iconID: 59335 ,iconName: "Haushalt"),
+    AddIcon(iconID: 62788 ,iconName: "Wohnung"),
+    AddIcon(iconID: 59161 ,iconName: "Sonstiges"),
+   //AddIcon(iconID: 57669 ,iconName: "Hinzufügen")
   ];
 
   List<AddIcon> get addDataList{

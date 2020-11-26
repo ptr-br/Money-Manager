@@ -4,10 +4,22 @@ import 'package:flutter/material.dart';
 
 class AddIcon extends StatelessWidget {
 
-  AddIcon({this.icon,this.name});
-  final Icon icon;
-  final String name;
-  bool isSelected = false;
+  AddIcon({@required this.iconID,@ required this.iconName}){
+    isSelected =false;
+    this.iconID = iconID;
+    this.iconName = iconName;
+  }
+
+  AddIcon.withSelected( this.iconID, this.iconName, @required this.isSelected){
+    this.iconID=iconID;
+    this.iconName=iconName;
+    this.isSelected=isSelected;
+  }
+
+
+  int iconID;
+  String iconName;
+  bool isSelected;
   Color fillColourSelected = kPrimaryColor.withOpacity(0.5);
   Color fillColourNotSelected = kDarkColor.withOpacity(0.2);
 
@@ -24,9 +36,9 @@ class AddIcon extends StatelessWidget {
               focusColor: Colors.red,
               highlightColor: Colors.green ,
               shape: CircleBorder(),
-              child: icon),
+              child: Icon(IconData(iconID, fontFamily: 'MaterialIcons'))),
 
-          Text(name,
+          Text(iconName,
           style: kaddIconTextstyle),
         ],
       ),

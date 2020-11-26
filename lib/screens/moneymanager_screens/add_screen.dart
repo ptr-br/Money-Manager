@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../components/components_moneymanager/add_icon.dart';
 import '../../models/moneymanager_add_data.dart';
-import 'add_alertdialog.dart';
+import 'calculation_screen.dart';
 import 'hero_dialog_route.dart';
 
 class AddScreen extends StatefulWidget {
@@ -14,7 +14,6 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  AddIcon _selectedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -39,42 +38,42 @@ class _AddScreenState extends State<AddScreen> {
                     final tmpAllIcons = addData.addDataList;
                     final tmpIcon = addData.addDataList[index];
                     return GestureDetector(
-                        onTap: () {
-                          // TODO hier methode auslagern um zu hohe komplexität zu vermeiden
-                          for (int i=0;i<addData.iconsCount; i++){
-                            addData.addDataList[i].isSelected = false;
-                          }
-                          setState(() {
-                            tmpIcon.isSelected = true;
-                            // display modalbottom sheet
-                          });
-                          Navigator.push(context,
-                              HeroDialogRoute(
-                                  builder:(BuildContext context)=>CalculationScreen(addIcon: tmpIcon)));
+                      onTap: () {
+                        for (int i = 0; i < addData.iconsCount; i++) {
+                          addData.addDataList[i].isSelected = false;
+                        }
+                        setState(() {
+                          tmpIcon.isSelected = true;
 
-                          },
-                        child: Hero(
-                          tag: 'hero${tmpIcon.name}',
+                        });
+                        Navigator.push(
+                            context,
+                            HeroDialogRoute(
+                                builder: (BuildContext context) =>
+                                    CalculationScreen(iconID: tmpIcon.iconID,iconName: tmpIcon.iconName)));
+                      },
+                      child: Hero(
+                        tag: 'hero${tmpIcon.iconName}',
 
-                          // prevent hero from overfloating
-                          flightShuttleBuilder: (BuildContext flightContext,
-                              Animation<double> animation,
-                              HeroFlightDirection flightDirection,
-                              BuildContext fromHeroContext,
-                              BuildContext toHeroContext,){
-                            return SingleChildScrollView(
-                              child: fromHeroContext.widget,
-                            );},
+                        // prevent hero from overfloating
+                        flightShuttleBuilder: (
+                          BuildContext flightContext,
+                          Animation<double> animation,
+                          HeroFlightDirection flightDirection,
+                          BuildContext fromHeroContext,
+                          BuildContext toHeroContext,
+                        ) {
+                          return SingleChildScrollView(
+                            child: fromHeroContext.widget,
+                          );
+                        },
 
-
-                          transitionOnUserGestures: true,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Container(
-                              child: tmpIcon.build(context)),
-                          ),
-
+                        transitionOnUserGestures: true,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: Container(child: tmpIcon.build(context)),
                         ),
+                      ),
                     );
                   },
                   itemCount: addData.iconsCount,

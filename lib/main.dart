@@ -38,15 +38,10 @@ class MyApp extends StatelessWidget {
         initialRoute: HomeScreeen.id,
         routes: {
           HomeScreeen.id: (context) => HomeScreeen(),
-
           ChatScreen.id: (context) => ChatScreen(),
-
           ShoppingList_Screen.id: (context) => ShoppingList_Screen(),
-
           TodoScreen.id: (context) => TodoScreen(),
-
           CalendarScreen.id: (context) => CalendarScreen(),
-
           MoneyManagerScreen.id: (context) => MoneyManagerScreen(),
           AddScreen.id: (context) => AddScreen(),
           SplitScreen.id: (context) => SplitScreen(),

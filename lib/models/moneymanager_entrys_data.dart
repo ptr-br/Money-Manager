@@ -1,33 +1,42 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'moneymanager_entry.dart';
+import '../database/database.dart';
 
 
 class EntryData extends ChangeNotifier{
 
- List<Entry> _entrys =[Entry(description: "kleine Beschreibung", icon:Icon(Icons.ac_unit),cardName:"Schneearbeiten", expense: 12.50),Entry(description: "kleine Beschreibung", icon:Icon(Icons.card_giftcard),cardName:"Auto", expense: 1450.50),
-   Entry(description: "kleine Beschreibung", icon:Icon(Icons.security),cardName:"Versicherung", expense: 7864.50)];
 
- UnmodifiableListView<Entry> get entryData{
-   return UnmodifiableListView(_entrys);
+
+ DBProvider dbHelper = DBProvider.instnace;
+ List<Entry> _entrys=[];
+
+
+
+ Future<List> get entryData {
+    return  dbHelper.getAllEntrys();
  }
 
  int get entryCount{
-   return _entrys.length;
+   print('Rewrite this method');
+   return 0;
  }
+
+ void  deleteEntry(String date){
+  dbHelper.deleteEntry(date);
+  notifyListeners();
+}
+
+
 
  void addEntry(Entry entry){
-   _entrys.add(entry);
+    dbHelper.newEntry(entry);
    notifyListeners();
  }
 
- void deleteEntry(Entry entry){
-   _entrys.remove(entry);
-   notifyListeners();
- }
-
- double get getExpense{
-   double income = 0.0;
+ Future <double> get getExpense async{
+   _entrys = await dbHelper.getAllEntrys();
+   double income = 0;
    for (Entry entry in _entrys){
      income += entry.expense;
    }
