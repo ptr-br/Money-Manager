@@ -49,6 +49,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     });
   }
 
+  // Functions for moneymanager_headerCard
   Future<double> _getEntryExpenses() async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
     var data = await entryProvider.getExpense;
@@ -59,9 +60,18 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
     entryProvider.setSelectedDate(date);
     selectedDate = date;
-    //setState(() {});
-  }
 
+  }
+// End functions for moneymangaer_headerCard
+
+
+
+  // Functions for espenses_list
+  Future<List> _getEntrySnapforMonth() async{
+    var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
+    var data = await entryProvider.entryDataByMonth(selectedDate.toString());
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +118,8 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
                   child: MoneyManagerHeaderCard(_getEntryExpenses(), newDate: newDate, selectedDate: selectedDate,),
                 ),
               ),
-              Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
+              Expanded(flex: 200, child: ExpensesList(_getEntrySnapforMonth())),
+              // old One using scrollController :Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
             ],
           ),
         ),

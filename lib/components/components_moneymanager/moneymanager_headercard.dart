@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class MoneyManagerHeaderCard extends StatelessWidget {
 
-  MoneyManagerHeaderCard(this._future, {this.newDate,this.selectedDate});
+  MoneyManagerHeaderCard(this._future,{this.newDate,this.selectedDate});
   final DateTime selectedDate;
   final Future _future;
   final Function newDate;

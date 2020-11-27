@@ -6,31 +6,12 @@ import 'package:provider/provider.dart';
 import './task_tile_moneymanager.dart';
 import '../../models/moneymanager_entrys_data.dart';
 
-class ExpensesList extends StatefulWidget {
-  @override
-  _ExpensesListState createState() => _ExpensesListState();
+class ExpensesList extends StatelessWidget {
 
-  ExpensesList({this.scrollController});
-  ScrollController scrollController;
-}
+  ExpensesList(this._future);
 
 
-class _ExpensesListState extends State<ExpensesList> {
-  Future _future;
-
-
-  void initState() {
-    super.initState();
-    EntryDataProvider entryData = EntryDataProvider();
-    _future = _getEntrySnap(entryData);
-  }
-
-
-  Future<List> _getEntrySnap(EntryDataProvider entryData) async{
-    var data = await entryData.entryData;
-       return data;
-  }
-
+  final Future _future;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +43,7 @@ class _ExpensesListState extends State<ExpensesList> {
                         if (snapshot.hasData){
                           return ListView.separated(
                             // actual function is located in moneymanager_screen
-                            controller: widget.scrollController,
+                            //controller: widget.scrollController,
                             itemCount: (snapshot.data.length == null) ? 0 : snapshot.data.length,
                             separatorBuilder: (BuildContext context, int index) => const Divider(height: 0),
                             itemBuilder: (BuildContext context, int index) {
@@ -84,9 +65,39 @@ class _ExpensesListState extends State<ExpensesList> {
         )
     );
   }
+
+
+
+
+
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+//ExpensesList({this.scrollController});
+//ScrollController scrollController;
+
+//  void initState() {
+//    super.initState();
+//    EntryDataProvider entryData = EntryDataProvider();
+//    _future = _getEntrySnap(entryData);
+//  }
+
+
+//  Future<List> _getEntrySnap(EntryDataProvider entryData) async{
+//    var data = await entryData.entryData;
+//       return data;
+//  }
 
 
 
