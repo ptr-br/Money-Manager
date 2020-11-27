@@ -68,11 +68,19 @@ class DBProvider {
     return res.isNotEmpty ? Entry.fromMap(res.first) : Null ;
   }
 
+  Future<List> getEntrysByMonth(String date) async{
+    final db = await instnace.database;
+    List<String> _splitList = date.split("-");
+    String _month = _splitList[0] + "-" + _splitList[1];
+    var res = await db.rawQuery("SELECT * From $_dbTableName WHERE date LIKE '$_month%'");
+    List<Entry> list = res.isNotEmpty ? res.map((c) => Entry.fromMap(c)).toList() : [];
+    return list;
+  }
+
   Future<List> getAllEntrys() async {
     final db = await instnace.database;
     var res = await db.query(_dbTableName);
     List<Entry> list = res.isNotEmpty ? res.map((c) => Entry.fromMap(c)).toList() : [];
-
     return list;
   }
 

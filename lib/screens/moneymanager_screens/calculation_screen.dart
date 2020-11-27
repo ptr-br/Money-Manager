@@ -240,7 +240,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
                     person: _character.toString()
 
                 );
-                Provider.of<EntryData>(context, listen: false).addEntry(entry);
+                Provider.of<EntryDataProvider>(context, listen: false).addEntry(entry);
                 Navigator.pushNamedAndRemoveUntil(
                     context, MoneyManagerScreen.id, (
                     Route<dynamic> route) => false);

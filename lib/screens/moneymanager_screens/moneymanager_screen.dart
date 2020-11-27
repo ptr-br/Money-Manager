@@ -1,4 +1,5 @@
 import 'package:couplemanager/constants.dart';
+import 'package:couplemanager/models/moneymanager_entrys_data.dart';
 import 'package:couplemanager/screens/moneymanager_screens/add_screen.dart';
 import 'package:couplemanager/screens/moneymanager_screens/split_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import '../../components/components_moneymanager/moneymanager_headercard.dart';
 import '../../components/components_moneymanager/expenses_list.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 
 class MoneyManagerScreen extends StatefulWidget {
@@ -19,20 +21,26 @@ class MoneyManagerScreen extends StatefulWidget {
 }
 
 class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
-
   Color buttonColor = kPrimaryColor;
   ScrollController scrollController;
   bool dialVisible = true;
+  DateTime selectedDate = DateTime.now();
+
 
 
   // Methods for hiding FAB by scrolling
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
-      scrollController.addListener(() {
-        setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
-      });
+    // TODO
+    // scrollController retriggers futueBuilder every time ... this leads to massive rebuilds during scrolling....
+    // For now its decided to not use a scrollcontroller since it has only design advantages and does not provide any practical
+    // function
+
+    //scrollController = ScrollController();
+      //scrollController.addListener(() {
+        //setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
+     // });
   }
 
   void setDialVisible(bool value) {
@@ -41,15 +49,29 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     });
   }
 
+  Future<double> _getEntryExpenses() async{
+    var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
+    var data = await entryProvider.getExpense;
+    return data;
+  }
+
+  void newDate(DateTime date){
+    var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
+    entryProvider.setSelectedDate(date);
+    selectedDate = date;
+    //setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    var entryProvider = Provider.of<EntryDataProvider>(context);
     return Scaffold(
       backgroundColor: kBackgroundColor,
       floatingActionButton: buildSpeedDail(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: buildBody(),
       bottomNavigationBar: buildBottomNavigationBar(),
-
       );
   }
 
@@ -83,7 +105,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   height: 220,
                   width: double.maxFinite,
-                  child: MoneyManagerHeaderCard(),
+                  child: MoneyManagerHeaderCard(_getEntryExpenses(), newDate: newDate, selectedDate: selectedDate,),
                 ),
               ),
               Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
@@ -153,8 +175,6 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
           },
         ),
       ],
-
-
     );
   }
 

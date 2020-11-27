@@ -49,7 +49,7 @@ class TaskTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20)),
                           color: kFABcloseColor,
                           onPressed: () {
-                            Provider.of<EntryData>(context, listen: false).deleteEntry(entry.date);
+                            Provider.of<EntryDataProvider>(context, listen: false).deleteEntry(entry.date);
                             Navigator.pushNamedAndRemoveUntil(
                                 context, MoneyManagerScreen.id, (
                                 Route<dynamic> route) => false);

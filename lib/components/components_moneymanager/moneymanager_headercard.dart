@@ -6,38 +6,25 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:provider/provider.dart';
 
 
-class MoneyManagerHeaderCard extends StatefulWidget {
-  @override
-  _MoneyManagerHeaderCardState createState() => _MoneyManagerHeaderCardState();
-}
+class MoneyManagerHeaderCard extends StatelessWidget {
 
-class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
-  DateTime selectedDate = DateTime.now();
-  Future _future;
+  MoneyManagerHeaderCard(this._future, {this.newDate,this.selectedDate});
+  final DateTime selectedDate;
+  final Future _future;
+  final Function newDate;
 
-  @override
-  void initState() {
-    EntryData entryData = EntryData();
-    _future = _getEntryExpenses(entryData);
-    print(selectedDate);
-    super.initState();
-  }
-
-  Future<double> _getEntryExpenses(EntryData entryData) async{
-    var data = await entryData.getExpense;
-    return data;
-  }
 
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Consumer<EntryData>(
+      child: Consumer<EntryDataProvider>(
         builder: (context, entryData, child) {
           return FutureBuilder(
             future: _future,
             builder: (context, AsyncSnapshot snapshot) {
+
               switch (snapshot.connectionState){
                 case ConnectionState.waiting:
                   return Center(
@@ -52,63 +39,59 @@ class _MoneyManagerHeaderCardState extends State<MoneyManagerHeaderCard> {
                   }else
                   if (snapshot.hasData){
                     return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                //ser
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        //ser
                         HeaderAndValue(name: 'Income', value: 0),
                         VerticalDivider(
-                  width: 1,
-                  color: kDarkColor,
-                ),
-                      HeaderAndValue(
-                    name: 'Expenses',
-                    value: snapshot.data),
+                          width: 1,
+                          color: kDarkColor,
+                        ),
+                        HeaderAndValue(
+                            name: 'Expenses',
+                            value: snapshot.data),
 
-                       VerticalDivider(
-                  width: 1,
-                  color: kDarkColor,
-                ),
-                    Expanded(
-                  flex: 1,
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    height: double.infinity,
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      showMonthPicker(
-                        context: context,
-                        firstDate: DateTime(DateTime.now().year - 10, 12),
-                        lastDate: DateTime(DateTime.now().year + 10, 12),
-                        initialDate: DateTime.now(),
-                        locale: Locale("en"),
-                      ).then(
-                        (date) {
-                          if (date != null) {
-                            setState(
-                              () {
-                                selectedDate = date;
-                              },
-                            );
-                          }
-                        },
-                      );
-                    },
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: 'Date\n',
-                        style: kStyleHeaderHeadline,
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: '${selectedDate.month}/${selectedDate.year}',
-                              style: kStyleHeaderText)
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
+                        VerticalDivider(
+                          width: 1,
+                          color: kDarkColor,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: MaterialButton(
+                            minWidth: double.infinity,
+                            height: double.infinity,
+                            padding: EdgeInsets.all(0),
+                            onPressed: () {
+                              showMonthPicker(
+                                context: context,
+                                firstDate: DateTime(DateTime.now().year - 10, 12),
+                                lastDate: DateTime(DateTime.now().year + 10, 12),
+                                initialDate: DateTime.now(),
+                                locale: Locale("en"),
+                              ).then(
+                                    (date) {
+                                  if (date != null) {
+                              newDate(date);
+                                  }
+                                },
+                              );
+                            },
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: 'Date\n',
+                                style: kStyleHeaderHeadline,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '${selectedDate.month}/${selectedDate.year}',
+                                      style: kStyleHeaderText)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
                   }
                   return Center(child: Text("No Data"));
 
@@ -152,3 +135,8 @@ class HeaderAndValue extends StatelessWidget{
     );
   }
 }
+
+
+
+
+

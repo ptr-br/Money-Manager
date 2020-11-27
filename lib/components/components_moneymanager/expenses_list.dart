@@ -21,13 +21,12 @@ class _ExpensesListState extends State<ExpensesList> {
 
   void initState() {
     super.initState();
-    EntryData entryData = EntryData();
+    EntryDataProvider entryData = EntryDataProvider();
     _future = _getEntrySnap(entryData);
-
   }
 
 
-  Future<List> _getEntrySnap(EntryData entryData) async{
+  Future<List> _getEntrySnap(EntryDataProvider entryData) async{
     var data = await entryData.entryData;
        return data;
   }
@@ -43,7 +42,7 @@ class _ExpensesListState extends State<ExpensesList> {
             axisDirection: AxisDirection.down,
             color: Colors.black54,
 
-            child: Consumer<EntryData>(
+            child: Consumer<EntryDataProvider>(
               builder: (context, entryData, child) {
                 return FutureBuilder(
                   future: _future,

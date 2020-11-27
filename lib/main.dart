@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       // TODO umsetzen des ChangeNotifyerProvider...
-      create: (context) => EntryData(),
+      create: (context) => EntryDataProvider(),
       child: MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           const Locale('de', 'DE'),
         ],
         // routes
-        initialRoute: HomeScreeen.id,
+        initialRoute: MoneyManagerScreen.id,
         routes: {
           HomeScreeen.id: (context) => HomeScreeen(),
           ChatScreen.id: (context) => ChatScreen(),

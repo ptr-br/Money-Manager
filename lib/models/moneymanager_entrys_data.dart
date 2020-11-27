@@ -4,22 +4,55 @@ import 'moneymanager_entry.dart';
 import '../database/database.dart';
 
 
-class EntryData extends ChangeNotifier{
+class EntryDataProvider with ChangeNotifier{
 
+  EntryDataProvider(){
+    _selectedDate = DateTime.now();
+  }
 
-
+  DateTime _selectedDate;
  DBProvider dbHelper = DBProvider.instnace;
  List<Entry> _entrys=[];
 
+
+
+// Getters
+ DateTime get selectedDate => _selectedDate;
 
 
  Future<List> get entryData {
     return  dbHelper.getAllEntrys();
  }
 
- int get entryCount{
-   print('Rewrite this method');
-   return 0;
+  Future <double>  get getExpense async{
+    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString());
+    double income = 0;
+    for (Entry entry in _entrys){
+      income += entry.expense;
+    }
+    return income;
+
+  }
+
+
+// int get entryCount{
+//   print('Rewrite this method');
+//   return 0;
+// }
+
+
+ // Setters
+ void  setSelectedDate(DateTime date){
+   _selectedDate = date;
+   notifyListeners();
+ }
+
+
+
+
+  // Methods
+ Future<List> entryDataByMonth(String date) {
+   return  dbHelper.getEntrysByMonth(date);
  }
 
  void  deleteEntry(String date){
@@ -27,22 +60,12 @@ class EntryData extends ChangeNotifier{
   notifyListeners();
 }
 
-
-
  void addEntry(Entry entry){
     dbHelper.newEntry(entry);
    notifyListeners();
  }
 
- Future <double> get getExpense async{
-   _entrys = await dbHelper.getAllEntrys();
-   double income = 0;
-   for (Entry entry in _entrys){
-     income += entry.expense;
-   }
-   return income;
 
- }
 
 
 }
