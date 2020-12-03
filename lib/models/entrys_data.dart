@@ -10,14 +10,21 @@ class EntryDataProvider with ChangeNotifier{
     _selectedDate = DateTime.now();
   }
 
+
+  double _expenses = 0;
+  double _income  = 0;
+
+
   DateTime _selectedDate;
- DBProvider dbHelper = DBProvider.instnace;
- List<Entry> _entrys=[];
+  DBProvider dbHelper = DBProvider.instnace;
+  List<Entry> _entrys=[];
 
 
 
 // Getters
  DateTime get selectedDate => _selectedDate;
+
+ double get expenses => _expenses;
 
 
  Future<List> get entryData {

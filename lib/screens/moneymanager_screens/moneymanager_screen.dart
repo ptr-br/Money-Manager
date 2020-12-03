@@ -47,18 +47,21 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
      // });
   }
 
-  void setIsExpense(){
-    isExpense = !isExpense;
-    setState(() {
+  void setIsExpense(String name){
 
-    });
-  }
+    if(name=="Expenses" && isExpense==false ||name=="Income" && isExpense==true){
+      isExpense = !isExpense;
+      setState(() {
 
-  void setDialVisible(bool value) {
-    setState(() {
-      dialVisible = value;
-    });
+      });
+    }
   }
+// TODO Dial visabile while scrolliing
+//  void setDialVisible(bool value) {
+//    setState(() {
+//      dialVisible = value;
+//    });
+//  }
 
   // Functions for moneymanager_headerCard
   Future<List> _getEntryExpenses() async{

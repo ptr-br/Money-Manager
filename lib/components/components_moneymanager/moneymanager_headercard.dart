@@ -118,7 +118,7 @@ class HeaderAndValue extends StatelessWidget{
       flex: 1,
       child: MaterialButton(
         onPressed: () {
-          setIsExpense();
+          setIsExpense(name);
         },
         minWidth: double.infinity,
         height: double.infinity,
@@ -129,7 +129,7 @@ class HeaderAndValue extends StatelessWidget{
               style: kStyleHeaderHeadline,
               children: <TextSpan>[
                 TextSpan(
-                  text: '$value',
+                  text: '${double.parse((value).toStringAsFixed(2))}',
                   style: kStyleHeaderText,
                 )
               ]),
