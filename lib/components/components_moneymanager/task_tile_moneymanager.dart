@@ -1,10 +1,10 @@
 import 'package:couplemanager/constants.dart';
-import 'package:couplemanager/models/moneymanager_entry.dart';
+import 'package:couplemanager/models/entry.dart';
 import 'package:couplemanager/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/moneymanager_entrys_data.dart';
+import '../../models/entrys_data.dart';
 import 'package:couplemanager/screens/moneymanager_screens/moneymanager_screen.dart';
 
 class TaskTile extends StatelessWidget {

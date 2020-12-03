@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
-
-import '../models/moneymanager_entry.dart';
+import '../models/entry.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBProvider {
 
-  static final _dbName = "MoneyManagerDatabase.db";
-  static final _dbTableName = "MoneyManagerDBase";
+  static final _dbName = "MoneyManagerDatabaseIncomeAndExpenses.db";
+  static final _dbTableName = "MoneyManagerDBaseIncomeAndExpenses";
   static final _dbVersion = 1;
 
 
@@ -36,6 +34,7 @@ class DBProvider {
              '''
              CREATE TABLE $_dbTableName(
              timestamp String PRIMARY KEY,
+             type String,
              date String ,
              person TEXT,   
              cardName TEXT,  
@@ -56,6 +55,7 @@ class DBProvider {
     print(newEntry.expense);
     print(newEntry.cardName);
     print(newEntry.description);
+    print(newEntry.type);
     final db = await instnace.database;
     print('after\n\n\n');
     var res = await db.insert(_dbTableName, newEntry.toMap());
@@ -68,13 +68,24 @@ class DBProvider {
     return res.isNotEmpty ? Entry.fromMap(res.first) : Null ;
   }
 
-  Future<List> getEntrysByMonth(String date) async{
+  Future<List> getEntrysByMonth(String date, bool isExpense) async {
     final db = await instnace.database;
     List<String> _splitList = date.split("-");
     String _month = _splitList[0] + "-" + _splitList[1];
-    var res = await db.rawQuery("SELECT * From $_dbTableName WHERE date LIKE '$_month%'");
-    List<Entry> list = res.isNotEmpty ? res.map((c) => Entry.fromMap(c)).toList() : [];
-    return list;
+
+    if (isExpense) {
+      var res = await db.rawQuery(
+          "SELECT * From $_dbTableName WHERE date LIKE '$_month%' AND type='expense' ");
+      List<Entry> list = res.isNotEmpty ? res.map((c) => Entry.fromMap(c))
+          .toList() : [];
+      return list;
+    } else {
+      var res = await db.rawQuery(
+          "SELECT * From $_dbTableName WHERE date LIKE '$_month%' AND type='income'");
+      List<Entry> list = res.isNotEmpty ? res.map((c) => Entry.fromMap(c))
+          .toList() : [];
+      return list;
+    }
   }
 
   Future<List> getAllEntrys() async {

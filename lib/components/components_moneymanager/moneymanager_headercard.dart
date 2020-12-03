@@ -1,4 +1,4 @@
-import 'package:couplemanager/models/moneymanager_entrys_data.dart';
+import 'package:couplemanager/models/entrys_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../constants.dart';
@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class MoneyManagerHeaderCard extends StatelessWidget {
 
-  MoneyManagerHeaderCard(this._future,{this.newDate,this.selectedDate});
+  MoneyManagerHeaderCard(this._future,{this.newDate,this.selectedDate,this.setIsExpense});
+
+  Function setIsExpense;
   final DateTime selectedDate;
   final Future _future;
   final Function newDate;
@@ -42,14 +44,12 @@ class MoneyManagerHeaderCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         //ser
-                        HeaderAndValue(name: 'Income', value: 0),
+                        HeaderAndValue(name: 'Income', value: snapshot.data[1], setIsExpense: setIsExpense,),
                         VerticalDivider(
                           width: 1,
                           color: kDarkColor,
                         ),
-                        HeaderAndValue(
-                            name: 'Expenses',
-                            value: snapshot.data),
+                        HeaderAndValue(name: 'Expenses', value: snapshot.data[0], setIsExpense: setIsExpense,),
 
                         VerticalDivider(
                           width: 1,
@@ -107,7 +107,8 @@ class MoneyManagerHeaderCard extends StatelessWidget {
 }
 
 class HeaderAndValue extends StatelessWidget{
-  HeaderAndValue({this.value, this.name});
+  HeaderAndValue({this.value, this.name,this.setIsExpense});
+  Function setIsExpense;
   final String name;
   final double value;
 
@@ -116,7 +117,9 @@ class HeaderAndValue extends StatelessWidget{
     return Expanded(
       flex: 1,
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          setIsExpense();
+        },
         minWidth: double.infinity,
         height: double.infinity,
         child: RichText(

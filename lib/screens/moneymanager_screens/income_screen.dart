@@ -1,24 +1,28 @@
-import 'package:couplemanager/constants.dart';
+import 'package:couplemanager/models/income_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:couplemanager/constants.dart';
 import 'package:provider/provider.dart';
-import '../../components/components_moneymanager/add_icon.dart';
-import '../../models/moneymanager_add_data.dart';
-import 'calculation_screen.dart';
 import 'hero_dialog_route.dart';
+import 'calculation_screen.dart';
 
-class AddScreen extends StatefulWidget {
-  static String id = "add_screen";
+
+
+
+
+
+class IncomeScreen extends StatefulWidget {
+
+  static String id = "income_screen";
 
   @override
-  _AddScreenState createState() => _AddScreenState();
+  _IncomeScreenState createState() => _IncomeScreenState();
 }
 
-class _AddScreenState extends State<AddScreen> {
-
+class _IncomeScreenState extends State<IncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AddData(),
+      create: (context) => IncomeIcons(),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -29,7 +33,7 @@ class _AddScreenState extends State<AddScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
             child: Container(
-              child: Consumer<AddData>(builder: (context, addData, child) {
+              child: Consumer<IncomeIcons>(builder: (context, addData, child) {
                 return GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
@@ -50,19 +54,19 @@ class _AddScreenState extends State<AddScreen> {
                             context,
                             HeroDialogRoute(
                                 builder: (BuildContext context) =>
-                                    CalculationScreen(iconID: tmpIcon.iconID,iconName: tmpIcon.iconName)));
+                                    CalculationScreen(iconID: tmpIcon.iconID,iconName: tmpIcon.iconName, type: 'income',)));
                       },
                       child: Hero(
                         tag: 'hero${tmpIcon.iconName}',
 
                         // prevent hero from overfloating
                         flightShuttleBuilder: (
-                          BuildContext flightContext,
-                          Animation<double> animation,
-                          HeroFlightDirection flightDirection,
-                          BuildContext fromHeroContext,
-                          BuildContext toHeroContext,
-                        ) {
+                            BuildContext flightContext,
+                            Animation<double> animation,
+                            HeroFlightDirection flightDirection,
+                            BuildContext fromHeroContext,
+                            BuildContext toHeroContext,
+                            ) {
                           return SingleChildScrollView(
                             child: fromHeroContext.widget,
                           );

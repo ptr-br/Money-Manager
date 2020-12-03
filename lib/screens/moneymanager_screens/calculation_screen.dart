@@ -1,7 +1,7 @@
 import 'package:couplemanager/components/components_moneymanager/add_icon.dart';
 import 'package:couplemanager/constants.dart';
-import 'package:couplemanager/models/moneymanager_entry.dart';
-import 'package:couplemanager/models/moneymanager_entrys_data.dart';
+import 'package:couplemanager/models/entry.dart';
+import 'package:couplemanager/models/entrys_data.dart';
 import 'package:couplemanager/screens/moneymanager_screens/moneymanager_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +11,12 @@ import '../../utils.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-enum Character { Peter, Kaddy }
+enum Character {Peter, Kaddy}
 
 class CalculationScreen extends StatefulWidget {
-  CalculationScreen({this.iconID,this.iconName});
+  CalculationScreen({this.iconID,this.iconName, @required this.type});
 
+  final String type;
   final int iconID;
   final String iconName;
   static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -135,7 +136,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
                                   _fieldFocusChange(context, _moneyFocus, _descriptionFocus);
                                 },
 
-
+                                // set , and . equal to denote the border between euro and cents
                                 onSaved: (value) {
                                   if (value.contains(',')){
                                     print(value);
@@ -232,6 +233,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
 
                 Entry entry = new Entry(
                     timestamp: DateTime.now().toString(),
+                    type: widget.type,
                     cardName: widget.iconName,
                     icon: widget.iconID,
                     expense: _money,

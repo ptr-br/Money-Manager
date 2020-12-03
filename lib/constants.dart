@@ -31,3 +31,20 @@ const kaddIconTextstyle = TextStyle(fontSize: 12, color: kTextMediumColor);
 
 // AutoFocus of Keyboard when inputting numbers
 const bool kAutoFocusKeyboard = false;
+
+
+const MaterialColor mainColorSwatch = const MaterialColor(
+  0xFF1E2432,
+  const <int, Color>{
+    50: const Color(0xFF1E2432),
+    100: const Color(0xFF1E2432),
+    200: const Color(0xFF1E2432),
+    300: const Color(0xFF1E2432),
+    400: const Color(0xFF1E2432),
+    500: const Color(0xFF1E2432),
+    600: const Color(0xFF1E2432),
+    700: const Color(0xFF1E2432),
+    800: const Color(0xFF1E2432),
+    900: const Color(0xFF1E2432),
+  },
+);

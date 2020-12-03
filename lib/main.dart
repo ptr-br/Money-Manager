@@ -9,13 +9,16 @@ import 'screens/todo_screen.dart';
 import 'screens/calendar_screen.dart';
 import 'screens/moneymanager_screens/moneymanager_screen.dart';
 import 'package:provider/provider.dart';
-import './models/moneymanager_entrys_data.dart';
-import './screens/moneymanager_screens/add_screen.dart';
-import './screens/moneymanager_screens/split_screen.dart';
+import './models/entrys_data.dart';
+import './screens/moneymanager_screens/expenses_screen.dart';
+import './screens/moneymanager_screens/income_screen.dart';
 
 void main() => runApp(MyApp());
 
+
 class MyApp extends StatelessWidget {
+
+
 
   String licenseKey = 'NT8mJyc2IWhia31ifWN9Z2FoYmF8YGJ8ampqanNiYmlmamlmanMDHmgjNic2ITEyJjYhYmp9an1qZBM0PjI6P30wPD4=';
 
@@ -24,7 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      // TODO umsetzen des ChangeNotifyerProvider...
       create: (context) => EntryDataProvider(),
       child: MaterialApp(
         localizationsDelegates: [
@@ -43,15 +45,31 @@ class MyApp extends StatelessWidget {
           TodoScreen.id: (context) => TodoScreen(),
           CalendarScreen.id: (context) => CalendarScreen(),
           MoneyManagerScreen.id: (context) => MoneyManagerScreen(),
-          AddScreen.id: (context) => AddScreen(),
-          SplitScreen.id: (context) => SplitScreen(),
+          ExpensesScreen.id: (context) => ExpensesScreen(),
+          IncomeScreen.id: (context) => IncomeScreen(),
+
         },
 
         debugShowCheckedModeBanner: false,
         title: 'Shared Manager',
         theme: ThemeData(
           primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: kBackgroundColor,
+          primaryColorDark: kDarkColor,
+          primaryColorLight: kCardColor,
+          accentColor: kTextMediumColor,
+          primarySwatch: mainColorSwatch,
+          //scaffoldBackgroundColor: kBackgroundColor,
+          //textSelectionColor: kPrimaryColor,
+          //buttonColor: kPrimaryColor,
+          //splashColor: kPrimaryColor,
+          //highlightColor: kPrimaryColor,
+          //canvasColor: kPrimaryColor,
+          //focusColor: kPrimaryColor,
+          //disabledColor: kPrimaryColor,
+          //shadowColor: kPrimaryColor,
+          //dividerColor: kPrimaryColor,
+
+
           textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
 
         ),

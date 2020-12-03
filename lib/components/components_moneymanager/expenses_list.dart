@@ -1,10 +1,10 @@
 import 'dart:collection';
 import 'package:couplemanager/components/components_moneymanager/add_icon.dart';
-import 'package:couplemanager/models/moneymanager_entry.dart';
+import 'package:couplemanager/models/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './task_tile_moneymanager.dart';
-import '../../models/moneymanager_entrys_data.dart';
+import '../../models/entrys_data.dart';
 
 class ExpensesList extends StatelessWidget {
 
@@ -47,6 +47,7 @@ class ExpensesList extends StatelessWidget {
                             itemCount: (snapshot.data.length == null) ? 0 : snapshot.data.length,
                             separatorBuilder: (BuildContext context, int index) => const Divider(height: 0),
                             itemBuilder: (BuildContext context, int index) {
+
                               final entry = snapshot.data[index];
                               return TaskTile(entry: entry);
                             },
@@ -65,39 +66,5 @@ class ExpensesList extends StatelessWidget {
         )
     );
   }
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ExpensesList({this.scrollController});
-//ScrollController scrollController;
-
-//  void initState() {
-//    super.initState();
-//    EntryDataProvider entryData = EntryDataProvider();
-//    _future = _getEntrySnap(entryData);
-//  }
-
-
-//  Future<List> _getEntrySnap(EntryDataProvider entryData) async{
-//    var data = await entryData.entryData;
-//       return data;
-//  }
-
-
 

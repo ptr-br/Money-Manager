@@ -1,7 +1,7 @@
 import 'package:couplemanager/constants.dart';
-import 'package:couplemanager/models/moneymanager_entrys_data.dart';
-import 'package:couplemanager/screens/moneymanager_screens/add_screen.dart';
-import 'package:couplemanager/screens/moneymanager_screens/split_screen.dart';
+import 'package:couplemanager/models/entrys_data.dart';
+import 'package:couplemanager/screens/moneymanager_screens/expenses_screen.dart';
+import 'package:couplemanager/screens/moneymanager_screens/income_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,8 +12,10 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 
+
 class MoneyManagerScreen extends StatefulWidget {
   static String id = 'moneymanager_screen';
+
 
 
   @override
@@ -21,10 +23,12 @@ class MoneyManagerScreen extends StatefulWidget {
 }
 
 class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
+
   Color buttonColor = kPrimaryColor;
   ScrollController scrollController;
   bool dialVisible = true;
   DateTime selectedDate = DateTime.now();
+  bool isExpense = true;
 
 
 
@@ -32,7 +36,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO
+    // TODO only if feature is wanted
     // scrollController retriggers futueBuilder every time ... this leads to massive rebuilds during scrolling....
     // For now its decided to not use a scrollcontroller since it has only design advantages and does not provide any practical
     // function
@@ -43,6 +47,13 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
      // });
   }
 
+  void setIsExpense(){
+    isExpense = !isExpense;
+    setState(() {
+
+    });
+  }
+
   void setDialVisible(bool value) {
     setState(() {
       dialVisible = value;
@@ -50,11 +61,15 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   }
 
   // Functions for moneymanager_headerCard
-  Future<double> _getEntryExpenses() async{
+  Future<List> _getEntryExpenses() async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
-    var data = await entryProvider.getExpense;
-    return data;
+    var expenses = await entryProvider.getExpense;
+    var income  = await entryProvider.getIncome;
+    return [expenses,income];
   }
+
+
+
 
   void newDate(DateTime date){
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
@@ -67,9 +82,9 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
 
   // Functions for espenses_list
-  Future<List> _getEntrySnapforMonth() async{
+  Future<List> _getEntrySnapforMonth(bool isExpense) async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
-    var data = await entryProvider.entryDataByMonth(selectedDate.toString());
+    var data = await entryProvider.entryDataByMonth(selectedDate.toString(),isExpense);
     return data;
   }
 
@@ -115,10 +130,10 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   height: 220,
                   width: double.maxFinite,
-                  child: MoneyManagerHeaderCard(_getEntryExpenses(), newDate: newDate, selectedDate: selectedDate,),
+                  child: MoneyManagerHeaderCard(_getEntryExpenses(), newDate: newDate, selectedDate: selectedDate, setIsExpense: setIsExpense),
                 ),
               ),
-              Expanded(flex: 200, child: ExpensesList(_getEntrySnapforMonth())),
+              Expanded(flex: 200, child: ExpensesList(_getEntrySnapforMonth(isExpense))),
               // old One using scrollController :Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
             ],
           ),
@@ -154,37 +169,38 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-hero-tag',
       foregroundColor: kFABforegroundColor,
-      onOpen: (){
-        setState(() {
-          buttonColor = kFABcloseColor;
-        });
-      },
-      onClose:(){
-        setState(() {
-          buttonColor = kPrimaryColor;
-        });
-      },
-
       shape: CircleBorder(),
       children: [
         SpeedDialChild(
-          child: Icon(Icons.apps),
+          child: Icon(Icons.remove),
           backgroundColor: kDarkColor,
-          label: 'split expenses',
+          label: 'Ausgaben hinzufügen',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: (){
-            Navigator.pushNamed(context, SplitScreen.id );
+            Navigator.pushNamed(context, ExpensesScreen.id );
           },
         ),
+
+    // TODO add split expensses
+//        SpeedDialChild(
+//          child: Icon(Icons.apps),
+//          backgroundColor: kDarkColor,
+//          label: 'split expenses',
+//          labelStyle: TextStyle(fontSize: 18.0),
+//          onTap: (){
+//            Navigator.pushNamed(context, SplitScreen.id );
+//          },
+//        ),
         SpeedDialChild(
           child: Icon(Icons.add),
           backgroundColor: kDarkColor,
-          label: 'add expense',
+          label: 'Einkommen hinzufügen',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: (){
-            Navigator.pushNamed(context, AddScreen.id );
+             Navigator.pushNamed(context, IncomeScreen.id );
           },
         ),
+
       ],
     );
   }

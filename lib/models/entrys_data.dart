@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import 'moneymanager_entry.dart';
+import 'entry.dart';
 import '../database/database.dart';
 
 
@@ -25,7 +25,7 @@ class EntryDataProvider with ChangeNotifier{
  }
 
   Future <double>  get getExpense async{
-    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString());
+    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString(),true);
     double income = 0;
     for (Entry entry in _entrys){
       income += entry.expense;
@@ -34,12 +34,15 @@ class EntryDataProvider with ChangeNotifier{
 
   }
 
+  Future <double>  get getIncome async{
+    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString(),false);
+    double income = 0;
+    for (Entry entry in _entrys){
+      income += entry.expense;
+    }
+    return income;
 
-// int get entryCount{
-//   print('Rewrite this method');
-//   return 0;
-// }
-
+  }
 
  // Setters
  void  setSelectedDate(DateTime date){
@@ -47,12 +50,9 @@ class EntryDataProvider with ChangeNotifier{
    notifyListeners();
  }
 
-
-
-
   // Methods
- Future<List> entryDataByMonth(String date) {
-   return  dbHelper.getEntrysByMonth(date);
+ Future<List> entryDataByMonth(String date, bool isExpense) {
+   return  dbHelper.getEntrysByMonth(date, isExpense);
  }
 
  void  deleteEntry(String date){

@@ -1,12 +1,12 @@
 import 'dart:collection';
 import 'package:couplemanager/components/components_moneymanager/add_icon.dart';
 import 'package:flutter/material.dart';
-import '../models/moneymanager_add_data.dart';
+import '../models/expenses_icons.dart';
 
-class AddData extends ChangeNotifier{
+class ExpensesIcons extends ChangeNotifier{
 
   // Icons-List
-  List<AddIcon> _addIconList =[
+  List<AddIcon> _addExpenesesIconList =[
     AddIcon(iconID: 59168 ,iconName: "Lebensmittel"),
     AddIcon(iconID: 61001 ,iconName: "Ausgehen"),
     AddIcon(iconID: 62619 ,iconName: "Kleidung"),
@@ -20,20 +20,20 @@ class AddData extends ChangeNotifier{
   ];
 
   List<AddIcon> get addDataList{
-    return _addIconList ;
+    return _addExpenesesIconList ;
   }
 
   int get iconsCount{
-    return _addIconList.length;
+    return _addExpenesesIconList.length;
   }
 
   void addEntry(AddIcon addIcon){
-    _addIconList.add(addIcon);
+    _addExpenesesIconList.add(addIcon);
     notifyListeners();
   }
 
   void deleteEntry(AddIcon addIcon){
-    _addIconList.remove(addIcon);
+    _addExpenesesIconList.remove(addIcon);
     notifyListeners();
   }
 
