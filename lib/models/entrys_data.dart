@@ -17,7 +17,9 @@ class EntryDataProvider with ChangeNotifier{
 
   DateTime _selectedDate;
   DBProvider dbHelper = DBProvider.instnace;
-  List<Entry> _entrys=[];
+  List<Entry> _entrysIncome=[];
+  List<Entry> _entrysExpenses=[];
+
 
 
 
@@ -25,30 +27,32 @@ class EntryDataProvider with ChangeNotifier{
  DateTime get selectedDate => _selectedDate;
 
  double get expenses => _expenses;
+ double get income => _income;
 
 
  Future<List> get entryData {
     return  dbHelper.getAllEntrys();
  }
 
-  Future <double>  get getExpense async{
-    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString(),true);
-    double income = 0;
-    for (Entry entry in _entrys){
-      income += entry.expense;
+  void updateExpenses() async{
+    _entrysExpenses = await dbHelper.getEntrysByMonth(_selectedDate.toString(),true);
+    double expenses = 0;
+    for (Entry entry in _entrysExpenses){
+      expenses += entry.expense;
     }
-    return income;
-
+    _expenses= expenses;
+    notifyListeners();
   }
 
-  Future <double>  get getIncome async{
-    _entrys = await dbHelper.getEntrysByMonth(_selectedDate.toString(),false);
+  void updateIncome() async{
+    _entrysIncome = await dbHelper.getEntrysByMonth(_selectedDate.toString(),false);
     double income = 0;
-    for (Entry entry in _entrys){
+    for (Entry entry in _entrysIncome){
       income += entry.expense;
     }
-    return income;
+      _income = income;
 
+      notifyListeners();
   }
 
  // Setters

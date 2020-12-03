@@ -36,23 +36,19 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO only if feature is wanted
-    // scrollController retriggers futueBuilder every time ... this leads to massive rebuilds during scrolling....
-    // For now its decided to not use a scrollcontroller since it has only design advantages and does not provide any practical
-    // function
 
-    //scrollController = ScrollController();
-      //scrollController.addListener(() {
-        //setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
-     // });
+    Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+    Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
+    // scrollController code from here can be found at the bottom of this file under 1)
+
+
   }
 
   void setIsExpense(String name){
-
+      print('TriggerdD');
     if(name=="Expenses" && isExpense==false ||name=="Income" && isExpense==true){
       isExpense = !isExpense;
       setState(() {
-
       });
     }
   }
@@ -66,9 +62,9 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   // Functions for moneymanager_headerCard
   Future<List> _getEntryExpenses() async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
-    var expenses = await entryProvider.getExpense;
-    var income  = await entryProvider.getIncome;
-    return [expenses,income];
+    //Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+    var income  = await entryProvider.updateIncome;
+    return [0.0,income];
   }
 
 
@@ -84,7 +80,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
 
 
-  // Functions for espenses_list
+  // Functions for expenses
   Future<List> _getEntrySnapforMonth(bool isExpense) async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
     var data = await entryProvider.entryDataByMonth(selectedDate.toString(),isExpense);
@@ -133,7 +129,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   height: 220,
                   width: double.maxFinite,
-                  child: MoneyManagerHeaderCard(_getEntryExpenses(), newDate: newDate, selectedDate: selectedDate, setIsExpense: setIsExpense),
+                  child: MoneyManagerHeaderCard(newDate: newDate, selectedDate: selectedDate, setIsExpense:setIsExpense ),
                 ),
               ),
               Expanded(flex: 200, child: ExpensesList(_getEntrySnapforMonth(isExpense))),
@@ -210,3 +206,21 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
 
 }
+
+
+
+
+
+
+
+
+// 1)
+// TODO only if feature is wanted
+// scrollController retriggers futueBuilder every time ... this leads to massive rebuilds during scrolling....
+// For now its decided to not use a scrollcontroller since it has only design advantages and does not provide any practical
+// function
+
+//scrollController = ScrollController();
+//scrollController.addListener(() {
+//setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
+// });

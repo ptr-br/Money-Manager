@@ -231,6 +231,9 @@ class _CalculationScreenState extends State<CalculationScreen> {
               onPressed: () {
                 CalculationScreen._formKey.currentState.save();
 
+                Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+                Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
+
                 Entry entry = new Entry(
                     timestamp: DateTime.now().toString(),
                     type: widget.type,
