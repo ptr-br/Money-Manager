@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../constants.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:couplemanager/models/entrys_data.dart';
 
 
 
@@ -55,6 +57,8 @@ class MoneyManagerHeaderCard extends StatelessWidget {
                       (date) {
                     if (date != null) {
                       newDate(date);
+                      Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+                      Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
                     }
                   },
                 );

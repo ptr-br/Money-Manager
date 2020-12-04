@@ -45,7 +45,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   }
 
   void setIsExpense(String name){
-      print('TriggerdD');
+
     if(name=="Expenses" && isExpense==false ||name=="Income" && isExpense==true){
       isExpense = !isExpense;
       setState(() {
@@ -170,6 +170,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       foregroundColor: kFABforegroundColor,
       shape: CircleBorder(),
       children: [
+
         SpeedDialChild(
           child: Icon(Icons.remove),
           backgroundColor: kDarkColor,
@@ -179,6 +180,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
             Navigator.pushNamed(context, ExpensesScreen.id );
           },
         ),
+
 
     // TODO add split expensses
 //        SpeedDialChild(
@@ -197,6 +199,17 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: (){
              Navigator.pushNamed(context, IncomeScreen.id );
+          },
+        ),
+
+
+        SpeedDialChild(
+          child: Icon(Icons.backup),
+          backgroundColor: kDarkColor,
+          label: 'Aktualisieren',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: (){
+            // Update local database with cloud ...
           },
         ),
 
