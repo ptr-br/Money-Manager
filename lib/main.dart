@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Shared Manager',
         theme: ThemeData(
-          primaryColor: kPrimaryColor,
+          primaryColor: kDarkColor,
           primaryColorDark: kDarkColor,
           primaryColorLight: kCardColor,
           accentColor: kTextMediumColor,

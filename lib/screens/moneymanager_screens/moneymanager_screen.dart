@@ -24,8 +24,8 @@ class MoneyManagerScreen extends StatefulWidget {
 
 class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
-  Color buttonColor = kPrimaryColor;
-  ScrollController scrollController;
+
+  //ScrollController scrollController;
   bool dialVisible = true;
   DateTime selectedDate = DateTime.now();
   bool isExpense = true;
@@ -95,7 +95,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       floatingActionButton: buildSpeedDail(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: buildBody(),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      //bottomNavigationBar: buildBottomNavigationBar(),
       );
   }
 
@@ -140,40 +140,41 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       ),
     );
   }
-
-  BottomNavigationBar buildBottomNavigationBar(){
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(Icons.list), title: Text('Expenses')),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.category), title: Text('Categories')),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.assessment), title: Text('Stats')),
-      ],
-    );
-
-}
+// TODO ADD FUNCTIONALITIES FOR BOTTOM NAVIGATION BAR
+//  BottomNavigationBar buildBottomNavigationBar(){
+//    return BottomNavigationBar(
+//      selectedItemColor: (isExpense) ?kFABcloseColor: kPrimaryColor,
+//      items: const <BottomNavigationBarItem>[
+//        BottomNavigationBarItem(
+//            icon: Icon(Icons.list), title: Text('Übersicht')),
+//        BottomNavigationBarItem(
+//            icon: Icon(Icons.category), title: Text('Kategorien')),
+//        BottomNavigationBarItem(
+//            icon: Icon(Icons.assessment), title: Text('Statistik')),
+//      ],
+//    );
+//
+//}
 
   SpeedDial buildSpeedDail(){
     return SpeedDial(
       overlayColor: Colors.white,
       visible: dialVisible,
       closeManually: false,
-      backgroundColor: buttonColor,
+      backgroundColor: kDarkColor,
       elevation: 5.0,
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0),
       curve: Curves.bounceIn,
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-hero-tag',
-      foregroundColor: kFABforegroundColor,
+      foregroundColor: Colors.white,
       shape: CircleBorder(),
       children: [
 
         SpeedDialChild(
           child: Icon(Icons.remove),
-          backgroundColor: kDarkColor,
+          backgroundColor: kFABcloseColor,
           label: 'Ausgaben hinzufügen',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: (){
@@ -194,7 +195,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 //        ),
         SpeedDialChild(
           child: Icon(Icons.add),
-          backgroundColor: kDarkColor,
+          backgroundColor: kPrimaryColor,
           label: 'Einkommen hinzufügen',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: (){

@@ -22,10 +22,7 @@ class ExpensesList extends StatelessWidget {
           child: GlowingOverscrollIndicator(
             axisDirection: AxisDirection.down,
             color: Colors.black54,
-
-            child: Consumer<EntryDataProvider>(
-              builder: (context, entryData, child) {
-                return FutureBuilder(
+                child: FutureBuilder(
                   future: _future,
                   builder: (context,  AsyncSnapshot snapshot) {
                     switch (snapshot.connectionState){
@@ -59,9 +56,8 @@ class ExpensesList extends StatelessWidget {
                     return Container();
 
                   },
-                );
-              },
-            ),
+                )
+
           ),
         )
     );

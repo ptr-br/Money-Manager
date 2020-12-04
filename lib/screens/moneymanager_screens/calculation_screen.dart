@@ -126,7 +126,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
                             ListTile(
                               leading: Icon(Icons.monetization_on),
                               title: TextFormField(
-                                decoration: InputDecoration(hintText: "Money"),
+                                decoration: InputDecoration(hintText: "Betrag in €"),
                                 focusNode: _moneyFocus,
                                 autofocus: kAutoFocusKeyboard,
                                 textInputAction: TextInputAction.next,
@@ -160,7 +160,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
                             ListTile(
                               leading: Icon(Icons.description),
                               title: TextFormField(
-                                decoration: InputDecoration(hintText: "Description"),
+                                decoration: InputDecoration(hintText: "Beschreibung"),
                                 focusNode: _descriptionFocus,
                                 onSaved: (value) {
                                   _description = value;
@@ -215,7 +215,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
         actions: <Widget>[
 
           MaterialButton(
-              child: Text("Cancel"),
+              child: Text("Abbrechen"),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               color: kFABcloseColor,
@@ -224,7 +224,7 @@ class _CalculationScreenState extends State<CalculationScreen> {
               }),
 
           MaterialButton(
-              child: Text("Add"),
+              child: Text("Hinzufügen"),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               color: kPrimaryColor,

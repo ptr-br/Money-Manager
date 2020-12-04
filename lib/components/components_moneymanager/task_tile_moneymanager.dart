@@ -61,7 +61,7 @@ class TaskTile extends StatelessWidget {
                 );
               }),
               elevation: 5,
-              fillColor: kPrimaryColor.withOpacity(0.5),
+              fillColor: (entry.type =="income") ? kPrimaryColor.withOpacity(0.5): kFABcloseColor.withOpacity(0.3),
               shape: CircleBorder(),
               child:   Icon(IconData(entry.icon, fontFamily: 'MaterialIcons'))),
           Expanded(
@@ -71,16 +71,6 @@ class TaskTile extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-//
-//
-//                    AlertDialog(
-//                        content: ScrollConfiguration(
-//                        behavior: CustomScrollBehavior(),
-//                    child: SingleChildScrollView(
-//                    scrollDirection: Axis.vertical,
-//                    child: Stack(
-//                    children: <Widget>[
-//                    Align(
 
                     return AlertDialog(
                       title: Text("${entry.cardName}"),
