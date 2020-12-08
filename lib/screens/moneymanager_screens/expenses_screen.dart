@@ -1,9 +1,8 @@
 import 'package:couplemanager/constants.dart';
+import 'package:couplemanager/screens/moneymanager_screens/adding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../components/components_moneymanager/add_icon.dart';
 import '../../models/expenses_icons.dart';
-import 'calculation_screen.dart';
 import 'hero_dialog_route.dart';
 
 class ExpensesScreen extends StatefulWidget {
@@ -22,7 +21,7 @@ class _ExpensesScreen extends State<ExpensesScreen> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Select category"),
+          title: Text("Kategorie auswählen"),
           backgroundColor: kDarkColor,
         ),
         body: SafeArea(
@@ -50,7 +49,9 @@ class _ExpensesScreen extends State<ExpensesScreen> {
                             context,
                             HeroDialogRoute(
                                 builder: (BuildContext context) =>
-                                    CalculationScreen(iconID: tmpIcon.iconID,iconName: tmpIcon.iconName,type:"expense",)));
+                                        AddingScreen(iconID: tmpIcon.iconID, iconName: tmpIcon.iconName, type: "expense")
+                        ),
+                        );
                       },
                       child: Hero(
                         tag: 'hero${tmpIcon.iconName}',

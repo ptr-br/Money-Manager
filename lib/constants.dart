@@ -32,7 +32,7 @@ const kFABforegroundColor = Colors.white;
 const kaddIconTextstyle = TextStyle(fontSize: 12, color: kTextMediumColor);
 
 // AutoFocus of Keyboard when inputting numbers
-const bool kAutoFocusKeyboard = false;
+const bool kAutoFocusKeyboard = true;
 
 
 const MaterialColor mainColorSwatch = const MaterialColor(

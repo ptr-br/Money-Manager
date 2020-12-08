@@ -25,12 +25,12 @@ class MoneyManagerHeaderCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           //ser
-          HeaderAndValue(name: 'Income', incomeOrExpenses: 'income',setIsExpense: setIsExpense),
+          HeaderAndValue(name: 'Einnahmen', incomeOrExpenses: 'income',setIsExpense: setIsExpense),
           VerticalDivider(
             width: 1,
             color: kDarkColor,
           ),
-          HeaderAndValue(name: 'Expenses', incomeOrExpenses: 'expenses',setIsExpense:setIsExpense),
+          HeaderAndValue(name: 'Ausgaben', incomeOrExpenses: 'expenses',setIsExpense:setIsExpense),
 
           VerticalDivider(
             width: 1,
@@ -66,7 +66,7 @@ class MoneyManagerHeaderCard extends StatelessWidget {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Date\n',
+                  text: 'Datum\n',
                   style: kStyleHeaderHeadline,
                   children: <TextSpan>[
                     TextSpan(

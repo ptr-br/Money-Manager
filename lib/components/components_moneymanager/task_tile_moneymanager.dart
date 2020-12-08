@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/entrys_data.dart';
-import 'package:couplemanager/screens/moneymanager_screens/moneymanager_screen.dart';
+
 
 class TaskTile extends StatelessWidget {
   TaskTile(
@@ -50,9 +50,7 @@ class TaskTile extends StatelessWidget {
                           color: kFABcloseColor,
                           onPressed: () {
                             Provider.of<EntryDataProvider>(context, listen: false).deleteEntry(entry.date);
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, MoneyManagerScreen.id, (
-                                Route<dynamic> route) => false);
+                            Navigator.pop(context);
                           },
                         )
                       ],

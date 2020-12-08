@@ -59,14 +59,6 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 //    });
 //  }
 
-  // Functions for moneymanager_headerCard
-  Future<List> _getEntryExpenses() async{
-    var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
-    //Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
-    var income  = await entryProvider.updateIncome;
-    return [0.0,income];
-  }
-
 
 
 

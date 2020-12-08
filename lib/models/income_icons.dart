@@ -7,12 +7,12 @@ class IncomeIcons extends ChangeNotifier{
 
   // Icons-List
   List<AddIcon> _addIncomeIconList =[
-    AddIcon(iconID: 59021 ,iconName: "Lohn Kaddy"),
-    AddIcon(iconID: 59021 ,iconName: "Lohn Peter"),
-    AddIcon(iconID: 61667 ,iconName: "Geschenke"),
-    AddIcon(iconID: 61756 ,iconName: "BAFÖG"),
-    AddIcon(iconID: 59013 ,iconName: "Sonstiges"),
-    //AddIcon(iconID: 57669 ,iconName: "Hinzufügen")
+    AddIcon(iconID: 59021 ,iconName: "Lohn Kaddy", isExpense: false),
+    AddIcon(iconID: 59021 ,iconName: "Lohn Peter",isExpense: false),
+    AddIcon(iconID: 61667 ,iconName: "Geschenke", isExpense: false),
+    AddIcon(iconID: 61756 ,iconName: "BAFÖG", isExpense: false),
+    AddIcon(iconID: 59013 ,iconName: "Sonstiges", isExpense: false),
+    //AddIcon(iconID: 57669 ,iconName: "Hinzufügen, isExpense: false")
   ];
 
   List<AddIcon> get addDataList{

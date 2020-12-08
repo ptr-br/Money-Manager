@@ -1,4 +1,5 @@
 import 'package:couplemanager/constants.dart';
+import 'package:couplemanager/screens/moneymanager_screens/adding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/moneymanager_screens/moneymanager_screen.dart';
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
           MoneyManagerScreen.id: (context) => MoneyManagerScreen(),
           ExpensesScreen.id: (context) => ExpensesScreen(),
           IncomeScreen.id: (context) => IncomeScreen(),
+          AddingScreen.id: (context) => AddingScreen()
+
 
         },
 

@@ -3,15 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:couplemanager/constants.dart';
 import 'package:provider/provider.dart';
 import 'hero_dialog_route.dart';
-import 'calculation_screen.dart';
-
-
-
-
-
+import 'package:couplemanager/screens/moneymanager_screens/adding_screen.dart';
 
 class IncomeScreen extends StatefulWidget {
-
   static String id = "income_screen";
 
   @override
@@ -26,7 +20,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Select category"),
+          title: Text("Kategorie auswählen"),
           backgroundColor: kDarkColor,
         ),
         body: SafeArea(
@@ -48,25 +42,28 @@ class _IncomeScreenState extends State<IncomeScreen> {
                         }
                         setState(() {
                           tmpIcon.isSelected = true;
-
                         });
                         Navigator.push(
-                            context,
-                            HeroDialogRoute(
-                                builder: (BuildContext context) =>
-                                    CalculationScreen(iconID: tmpIcon.iconID,iconName: tmpIcon.iconName, type: 'income',)));
+                          context,
+                          HeroDialogRoute(
+                            builder: (BuildContext context) => AddingScreen(
+                                iconID: tmpIcon.iconID,
+                                iconName: tmpIcon.iconName,
+                                type: "income"),
+                          ),
+                        );
                       },
                       child: Hero(
                         tag: 'hero${tmpIcon.iconName}',
 
                         // prevent hero from overfloating
                         flightShuttleBuilder: (
-                            BuildContext flightContext,
-                            Animation<double> animation,
-                            HeroFlightDirection flightDirection,
-                            BuildContext fromHeroContext,
-                            BuildContext toHeroContext,
-                            ) {
+                          BuildContext flightContext,
+                          Animation<double> animation,
+                          HeroFlightDirection flightDirection,
+                          BuildContext fromHeroContext,
+                          BuildContext toHeroContext,
+                        ) {
                           return SingleChildScrollView(
                             child: fromHeroContext.widget,
                           );
