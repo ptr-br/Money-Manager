@@ -11,6 +11,7 @@ class TaskTile extends StatelessWidget {
   TaskTile(
       {@required this.entry});
 
+
   Entry entry;
 
 
@@ -49,7 +50,12 @@ class TaskTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20)),
                           color: kFABcloseColor,
                           onPressed: () {
-                            Provider.of<EntryDataProvider>(context, listen: false).deleteEntry(entry.date);
+
+                            Provider.of<EntryDataProvider>(context, listen:false).deleteEntry(entry.date);
+                            Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+                            Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
+
+
                             Navigator.pop(context);
                           },
                         )
@@ -89,9 +95,9 @@ class TaskTile extends StatelessWidget {
                                             RawMaterialButton(
                                               constraints: BoxConstraints.tight(Size(50, 50)),
                                                elevation: 5,
-                                               fillColor: kPrimaryColor.withOpacity(0.5),
+                                               fillColor: (entry.type =="income") ? kPrimaryColor.withOpacity(0.5): kFABcloseColor.withOpacity(0.3),
                                                shape: CircleBorder(),
-                                               child:   Icon(IconData(entry.icon, fontFamily: 'MaterialIcons'),
+                                               child:   Icon(IconData(entry.icon, fontFamily: 'MaterialIcons',),
                                                ),
                                             ),
                                             ListTile(

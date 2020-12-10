@@ -34,20 +34,22 @@ class AddingScreen extends StatefulWidget {
 class _AddingScreen extends State<AddingScreen> {
   final FocusNode _moneyFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
-  Character _character = Character.Peter;
-  DateTime _dateTime;
   final parser = buildParser();
+
+
+
+  // values
+  double _money;
+  String _description;
+  DateTime _dateTime;
+  Character _character = Character.Peter;
 
   @override
   Widget build(BuildContext context) {
     // call method to get acess to locale date
     initializeDateFormatting();
 
-    // values
-    double _money;
-    String _date;
-    String _person;
-    String _description;
+
 
     _fieldFocusChange(
         BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
@@ -97,27 +99,21 @@ class _AddingScreen extends State<AddingScreen> {
 
                                 );
                                 Provider.of<EntryDataProvider>(context, listen: false).addEntry(entry);
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, MoneyManagerScreen.id, (
-                                    Route<dynamic> route) => false);
+
+                                print(_dateTime);
+
+
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) => MoneyManagerScreen.createFromAddingScreen(
+                                        (widget.type=="expense")?true:false,
+                                        (_dateTime)==null ? DateTime.now() : _dateTime)),
+                                        (route) => false);
                               },
                               child: Material(
                                 type: MaterialType.transparency,
                                 child: Container(child: AddIcon.withSelected(widget.iconID, widget.iconName,true,(widget.type=="expense")?true:false)),
                               ),
                             ),
-//
-//                          // prevent hero from overfloating
-//                          flightShuttleBuilder: (BuildContext flightContext,
-//                              Animation<double> animation,
-//                              HeroFlightDirection flightDirection,
-//                              BuildContext fromHeroContext,
-//                              BuildContext toHeroContext,) {
-//                            return SingleChildScrollView(
-//                              child: fromHeroContext.widget,
-//                            );
-//                          },
-
                         ),
 
 
@@ -139,6 +135,8 @@ class _AddingScreen extends State<AddingScreen> {
                                     ).then((date){
                                       setState(() {
                                         _dateTime = date;
+                                        print('DateTime here');
+                                        print(_dateTime);
                                       });
                                     });
                                   }
@@ -168,10 +166,8 @@ class _AddingScreen extends State<AddingScreen> {
                                 // set , and . equal to denote the border between euro and cents
                                 onSaved: (value) {
                                   if (value.contains(',')){
-                                    print(value);
                                     List values = value.split(',');
                                     value = values.join('.');
-                                    print(value);
                                   }
                                   try{
 
@@ -182,7 +178,6 @@ class _AddingScreen extends State<AddingScreen> {
                                     else
                                       _money = double.parse(value);
                                   } catch(e){
-                                    print(e);
                                     _money = 0;
                                   }
                                 },

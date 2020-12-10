@@ -14,9 +14,24 @@ import 'package:provider/provider.dart';
 
 
 class MoneyManagerScreen extends StatefulWidget {
+
+  // Default Constructor
+  MoneyManagerScreen(){
+    this.isExpense= true;
+    DateTime dateNow = DateTime.now();
+    this.selectedDate = dateNow;
+  }
+
+  // Constructor when coming from adding_screen
+  MoneyManagerScreen.createFromAddingScreen(this.isExpense, this.selectedDate){
+    this.isExpense = isExpense;
+    this.selectedDate= selectedDate;
+  }
+
+
+  bool isExpense;
+  DateTime selectedDate;
   static String id = 'moneymanager_screen';
-
-
 
   @override
   _MoneyManagerScreenState createState() => _MoneyManagerScreenState();
@@ -27,18 +42,22 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
   //ScrollController scrollController;
   bool dialVisible = true;
-  DateTime selectedDate = DateTime.now();
-  bool isExpense = true;
 
 
 
-  // Methods for hiding FAB by scrolling
+
   @override
   void initState() {
     super.initState();
 
-    Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
-    Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<EntryDataProvider>(context, listen: false).setSelectedDate(widget.selectedDate);
+      Provider.of<EntryDataProvider>(context, listen: false).updateExpenses();
+      Provider.of<EntryDataProvider>(context, listen: false).updateIncome();
+    });
+
+
+
     // scrollController code from here can be found at the bottom of this file under 1)
 
 
@@ -46,8 +65,8 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
   void setIsExpense(String name){
 
-    if(name=="Expenses" && isExpense==false ||name=="Income" && isExpense==true){
-      isExpense = !isExpense;
+    if(name=="Ausgaben" && widget.isExpense==false ||name=="Einnahmen" && widget.isExpense==true){
+      widget.isExpense = !widget.isExpense;
       setState(() {
       });
     }
@@ -65,7 +84,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
   void newDate(DateTime date){
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
     entryProvider.setSelectedDate(date);
-    selectedDate = date;
+    widget.selectedDate = date;
 
   }
 // End functions for moneymangaer_headerCard
@@ -73,9 +92,9 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
 
 
   // Functions for expenses
-  Future<List> _getEntrySnapforMonth(bool isExpense) async{
+  Future<List> _getEntrySnapForMonth(bool isExpense) async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
-    var data = await entryProvider.entryDataByMonth(selectedDate.toString(),isExpense);
+    var data = await entryProvider.entryDataByMonth(widget.selectedDate.toString(),isExpense);
     return data;
   }
 
@@ -121,10 +140,10 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   height: 220,
                   width: double.maxFinite,
-                  child: MoneyManagerHeaderCard(newDate: newDate, selectedDate: selectedDate, setIsExpense:setIsExpense ),
+                  child: MoneyManagerHeaderCard(newDate:newDate, selectedDate: widget.selectedDate, setIsExpense:setIsExpense ),
                 ),
               ),
-              Expanded(flex: 200, child: ExpensesList(_getEntrySnapforMonth(isExpense))),
+              Expanded(flex: 200, child: ExpensesList(_getEntrySnapForMonth(widget.isExpense))),
               // old One using scrollController :Expanded(flex: 200, child: ExpensesList(scrollController: scrollController)),
             ],
           ),
@@ -133,20 +152,20 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     );
   }
 // TODO ADD FUNCTIONALITIES FOR BOTTOM NAVIGATION BAR
-//  BottomNavigationBar buildBottomNavigationBar(){
-//    return BottomNavigationBar(
-//      selectedItemColor: (isExpense) ?kFABcloseColor: kPrimaryColor,
-//      items: const <BottomNavigationBarItem>[
-//        BottomNavigationBarItem(
-//            icon: Icon(Icons.list), title: Text('Übersicht')),
-//        BottomNavigationBarItem(
-//            icon: Icon(Icons.category), title: Text('Kategorien')),
-//        BottomNavigationBarItem(
-//            icon: Icon(Icons.assessment), title: Text('Statistik')),
-//      ],
-//    );
-//
-//}
+  BottomNavigationBar buildBottomNavigationBar(){
+    return BottomNavigationBar(
+      selectedItemColor: (widget.isExpense) ?kFABcloseColor: kPrimaryColor,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.list), title: Text('Übersicht')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.category), title: Text('Kategorien')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.assessment), title: Text('Statistik')),
+      ],
+    );
+
+}
 
   SpeedDial buildSpeedDail(){
     return SpeedDial(

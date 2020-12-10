@@ -1,10 +1,6 @@
-import 'dart:collection';
-import 'package:couplemanager/components/components_moneymanager/add_icon.dart';
-import 'package:couplemanager/models/entry.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import './task_tile_moneymanager.dart';
-import '../../models/entrys_data.dart';
+
 
 class ExpensesList extends StatelessWidget {
 

@@ -14,7 +14,8 @@ class HeaderAndValue extends StatelessWidget{
 
   // check if income or expenses are needed
   double getIncomeOrExpenses(context){
-    if(name == 'Income'){
+
+    if(name == 'Einnahmen'){
       return double.parse((Provider.of<EntryDataProvider>(context).income).toStringAsFixed(2));
     }else{
       return double.parse((Provider.of<EntryDataProvider>(context).expenses).toStringAsFixed(2));

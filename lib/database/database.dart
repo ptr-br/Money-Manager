@@ -49,15 +49,15 @@ class DBProvider {
 
  // CRUD-methods
   newEntry(Entry newEntry) async {
-    print('Primary Key is timestamp: ${newEntry.timestamp}');
-    print(newEntry.date);
-    print(newEntry.icon);
-    print(newEntry.expense);
-    print(newEntry.cardName);
-    print(newEntry.description);
-    print(newEntry.type);
+    //print('Primary Key is timestamp: ${newEntry.timestamp}');
+    //print(newEntry.date);
+    //print(newEntry.icon);
+    //print(newEntry.expense);
+    //print(newEntry.cardName);
+    //print(newEntry.description);
+    //print(newEntry.type);
     final db = await instnace.database;
-    print('after\n\n\n');
+    //print('after\n\n\n');
     var res = await db.insert(_dbTableName, newEntry.toMap());
     return res;
   }
