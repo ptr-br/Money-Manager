@@ -6,11 +6,14 @@ An app that offers a simple UI with a sqflite database to keep track of your mon
 
 - Clone thos Repo
 - Open Android Studio and choose this as a exisitng project
-- Adapt files to create proper classes for your needs
+- Adapt files to create proper classes for your needs (expense_incons.dart and income_icons.dart)
 - Flash your emulator 
 
-This App only performs the basic tasks of a money manager on a local machine (German only). However, i also created a more sophisticated version that can be connected over firebase to synchronize over mutliple devices as well as aditional statistics. 
-If you are intersted in this solution, don't hesitate to contact me.
+This App only performs the basic tasks of a money manager on a local machine (German only). However, i also created a more sophisticated version that can be connected over firebase to synchronize over multiple devices as well as additional statistics. If you are interested in this solution, don't hesitate to contact me.
+
+
+
+
 
 
 
