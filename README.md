@@ -14,6 +14,6 @@ If you are intersted in this solution, don't hesitate to contact me.
 
 
 
-<img src="videos/example.gif" height="600"/>
+<img src="videos/example.gif" height="700"/>
 
 
