@@ -71,14 +71,6 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
       });
     }
   }
-// TODO Dial visabile while scrolliing
-//  void setDialVisible(bool value) {
-//    setState(() {
-//      dialVisible = value;
-//    });
-//  }
-
-
 
 
   void newDate(DateTime date){
@@ -87,11 +79,8 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
     widget.selectedDate = date;
 
   }
-// End functions for moneymangaer_headerCard
 
 
-
-  // Functions for expenses
   Future<List> _getEntrySnapForMonth(bool isExpense) async{
     var entryProvider = Provider.of<EntryDataProvider>(context,listen: false);
     var data = await entryProvider.entryDataByMonth(widget.selectedDate.toString(),isExpense);
@@ -193,17 +182,6 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
           },
         ),
 
-
-    // TODO add split expensses
-//        SpeedDialChild(
-//          child: Icon(Icons.apps),
-//          backgroundColor: kDarkColor,
-//          label: 'split expenses',
-//          labelStyle: TextStyle(fontSize: 18.0),
-//          onTap: (){
-//            Navigator.pushNamed(context, SplitScreen.id );
-//          },
-//        ),
         SpeedDialChild(
           child: Icon(Icons.add),
           backgroundColor: kPrimaryColor,
@@ -214,38 +192,7 @@ class _MoneyManagerScreenState extends State<MoneyManagerScreen> {
           },
         ),
 
-
-        SpeedDialChild(
-          child: Icon(Icons.backup),
-          backgroundColor: kDarkColor,
-          label: 'Aktualisieren',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: (){
-            // Update local database with cloud ...
-          },
-        ),
-
       ],
     );
   }
-
-
 }
-
-
-
-
-
-
-
-
-// 1)
-// TODO only if feature is wanted
-// scrollController retriggers futueBuilder every time ... this leads to massive rebuilds during scrolling....
-// For now its decided to not use a scrollcontroller since it has only design advantages and does not provide any practical
-// function
-
-//scrollController = ScrollController();
-//scrollController.addListener(() {
-//setDialVisible(scrollController.position.userScrollDirection == ScrollDirection.forward);
-// });

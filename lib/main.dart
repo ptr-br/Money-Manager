@@ -33,8 +33,6 @@ class MyApp extends StatelessWidget {
           ExpensesScreen.id: (context) => ExpensesScreen(),
           IncomeScreen.id: (context) => IncomeScreen(),
           AddingScreen.id: (context) => AddingScreen()
-
-
         },
 
         debugShowCheckedModeBanner: false,
