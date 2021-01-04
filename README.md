@@ -4,7 +4,7 @@ An app that offers a simple UI with a sqflite database to keep track of your mon
 
 ## Getting Started
 
-- Clone thos Repo
+- Clone this Repo
 - Open Android Studio and choose this as a exisitng project
 - Adapt files to create proper classes for your needs (expense_incons.dart and income_icons.dart)
 - Flash your emulator 
