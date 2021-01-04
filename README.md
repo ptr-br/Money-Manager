@@ -14,4 +14,6 @@ If you are intersted in this solution, don't hesitate to contact me.
 
 ![animated1](videos/example.gif)
 
+<img src="videos/example.gif" height="300"/>
+
 
