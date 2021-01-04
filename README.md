@@ -1,6 +1,6 @@
 # Money Manager
 
-An app that offers a simple UI with a sqflite database to check keep track of your monthly eincome and expenses.
+An app that offers a simple UI with a sqflite database to keep track of your monthly income and expenses.
 
 ## Getting Started
 
@@ -11,3 +11,5 @@ An app that offers a simple UI with a sqflite database to check keep track of yo
 
 This App only performs the basic tasks of a money manager on a local machine (German only). However, i also created a more sophisticated version that can be connected over firebase to synchronize over mutliple devices as well as aditional staticstics. 
 If you are intersted in this solution, don't hesitate to contact me.
+
+![animated1](assets/videos/examplesgif)
