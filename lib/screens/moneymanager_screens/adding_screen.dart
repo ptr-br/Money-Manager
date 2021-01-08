@@ -16,7 +16,7 @@ import 'package:couplemanager/utils.dart';
 
 
 
-enum Character {Peter, Kaddy}
+enum Character {Peter , Kaddy}
 
 class AddingScreen extends StatefulWidget {
   static String id = "adding_screen";
@@ -42,7 +42,7 @@ class _AddingScreen extends State<AddingScreen> {
   double _money;
   String _description;
   DateTime _dateTime;
-  Character _character = Character.Peter;
+  Character _character = Character.values[0];
 
   @override
   Widget build(BuildContext context) {
@@ -215,27 +215,27 @@ class _AddingScreen extends State<AddingScreen> {
                                     focusColor: kPrimaryColor,
                                     activeColor: kPrimaryColor,
                                     groupValue: _character,
-                                    value: Character.Peter,
+                                    value: Character.values[0],
                                     onChanged: (Character value){
                                       setState(() {
                                         _character= value;
                                       });
                                     },
                                   ),
-                                  Text('Peter'),
+                                  Text('${Character.values[0].toString().split('.').last}'),
 
                                   Radio(
                                     focusColor: kPrimaryColor,
                                     activeColor: kPrimaryColor,
                                     groupValue: _character,
-                                    value:  Character.Kaddy,
+                                    value:  Character.values[1],
                                     onChanged: (Character value){
                                       setState(() {
                                         _character= value;
                                       });
                                     },
                                   ),
-                                  Text('Kaddy')
+                                  Text('${Character.values[1].toString().split('.').last}'),
 
                                 ],
                               ),
