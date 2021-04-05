@@ -10,7 +10,7 @@ An app that offers a simple UI with a sqflite database to keep track of your mon
 - Adapt file to set your names (change enum in the adding_screen.dart file)
 - Flash your emulator 
 
-This App only performs the basic tasks of a money manager on a local machine (German only). However, i also created a more sophisticated version that can be connected over firebase to synchronize over multiple devices as well as additional statistics. If you are interested in this solution, don't hesitate to contact me.
+This App only performs the basic tasks of a money manager on a local machine (german only). However, i also created a more sophisticated version that can be connected with firebase to synchronize over multiple devices, and does also offer some additional statistics. If you are interested in this solution, don't hesitate to contact me.
 
 
 
